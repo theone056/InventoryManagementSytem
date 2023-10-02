@@ -16,7 +16,7 @@ namespace InventoryManagementSystem.API.Controllers
             _user = user;
         }
 
-        [HttpPost]
+        [HttpPost("Register")]
         public async Task<IActionResult> RegisterUser([FromBody] UserRegistrationModel user)
         {
             if(ModelState.IsValid)
@@ -33,6 +33,21 @@ namespace InventoryManagementSystem.API.Controllers
             }
             var errors = ModelState.Select(x => x.Value.Errors).Where(y => y.Count > 0).ToList();
             return StatusCode(StatusCodes.Status400BadRequest, errors);
+        }
+
+        [HttpPost("Login")]
+        public async Task<IActionResult> LoginUser([FromBody] LoginUserModel user)
+        {
+            if(ModelState.IsValid)
+            {
+                var result = await _user.LoginUser(user);
+                if(result)
+                {
+                    return Ok(new { Token = await _user.CreateToken() });
+                }
+            }
+
+            return Unauthorized();
         }
     }
 }

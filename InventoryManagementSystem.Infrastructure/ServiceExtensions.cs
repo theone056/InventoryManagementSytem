@@ -4,6 +4,7 @@ using InventoryManagementSystem.Infrastructure.Context;
 using InventoryManagementSystem.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -104,13 +105,28 @@ namespace InventoryManagementSystem.Infrastructure
             });
         }
 
+        public static void ConfigureControllers(this IServiceCollection services)
+        {
+            services.AddControllers(config =>
+            {
+                config.CacheProfiles.Add("30SecondsCaching", new CacheProfile
+                {
+                    Duration = 30
+                });
+            });
+        }
+        public static void ConfigureResponseCaching(this IServiceCollection services) => services.AddResponseCaching();
+
+
         public static void RegisterDependencies(this IServiceCollection services, IConfiguration configuration)
         {
 
             services.ConfigurePersistence(configuration);
-            services.ConfigureDependencyInjection();
             services.ConfigureJWT(configuration);
             services.ConfigureSwagger();
+            services.ConfigureDependencyInjection();
+            services.ConfigureControllers();
+            services.ConfigureResponseCaching();
         }
     }
 }

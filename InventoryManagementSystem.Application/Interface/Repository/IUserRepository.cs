@@ -11,5 +11,7 @@ namespace InventoryManagementSystem.Application.Interface.Repository
     public interface IUserRepository
     {
         Task<IdentityResult> RegisterUser(UserRegistrationModel user);
+        Task<bool> LoginUser(LoginUserModel user);
+        Task<string> CreateToken();
     }
 }
