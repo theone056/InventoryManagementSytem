@@ -16,7 +16,7 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 var serviceScope = app.Services.CreateScope();
-var dataContext = serviceScope.ServiceProvider.GetService<AuthenticationDbContext>();
+var dataContext = serviceScope.ServiceProvider.GetService<IMSDbContext>();
 dataContext?.Database.EnsureCreated();
 
 // Configure the HTTP request pipeline.

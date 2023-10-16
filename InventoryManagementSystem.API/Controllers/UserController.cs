@@ -1,6 +1,10 @@
-﻿using InventoryManagementSystem.Application.Interface.Repository;
+﻿using AutoMapper;
+using InventoryManagementSystem.API.Services;
+using InventoryManagementSystem.Application.Interface.Repository;
 using InventoryManagementSystem.Application.Models;
+using InventoryManagementSystem.Domain.Entities;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -11,9 +15,15 @@ namespace InventoryManagementSystem.API.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserRepository _user;
-        public UserController(IUserRepository user)
+        private readonly IJWTManagerRepository _jwtManager;
+        private readonly UserManager<User> _userManager;
+        private readonly IMapper _mapper;
+        public UserController(UserManager<User> userManager, IUserRepository user, IJWTManagerRepository jwtManager, IMapper mapper)
         {
             _user = user;
+            _jwtManager = jwtManager;
+            _userManager = userManager;
+            _mapper = mapper;
         }
 
         [HttpPost("Register")]
@@ -22,8 +32,24 @@ namespace InventoryManagementSystem.API.Controllers
             if(ModelState.IsValid)
             {
                 var userResult = await _user.RegisterUser(user);
+
                 if(userResult.Succeeded)
                 {
+                    //Uncomment if we will use email confirmation
+
+                    //var userMap = _mapper.Map<User>(user);
+                    //var token = await _userManager.GenerateEmailConfirmationTokenAsync(userMap);
+                    //var confirmationLink = Url.Action("ConfirmEmail", "Email", new { token, email = user.Email }, Request.Scheme, "");
+                    //EmailHelper emailHelper = new EmailHelper();
+                    //bool emailResponse = emailHelper.SendEmail(user.Email, confirmationLink);
+
+                    //if (emailResponse)
+                    //    return RedirectToAction("Index");
+                    //else
+                    //{
+                    //    // log email failed 
+                    //}
+
                     return StatusCode(StatusCodes.Status201Created);
                 }
                 else
@@ -43,7 +69,8 @@ namespace InventoryManagementSystem.API.Controllers
                 var result = await _user.LoginUser(user);
                 if(result)
                 {
-                    return Ok(new { Token = await _user.CreateToken() });
+                    //return Ok();
+                    return Ok(new { Token = await _jwtManager.CreateToken(user.UserName) });
                 }
             }
 

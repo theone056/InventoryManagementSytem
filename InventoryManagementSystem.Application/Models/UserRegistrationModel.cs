@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InventoryManagementSystem.Application.Enum;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -16,5 +17,6 @@ namespace InventoryManagementSystem.Application.Models
         public string? Email { get; set; }
         [Required]
         public string? Password { get; set; }
+        public UserRoles UserRole { get; set; }
     }
 }

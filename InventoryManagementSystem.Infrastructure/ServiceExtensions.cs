@@ -1,4 +1,5 @@
-﻿using InventoryManagementSystem.Application.Interface.Repository;
+﻿using InventoryManagementSystem.API.CustomTokenProvider;
+using InventoryManagementSystem.Application.Interface.Repository;
 using InventoryManagementSystem.Domain.Entities;
 using InventoryManagementSystem.Infrastructure.Context;
 using InventoryManagementSystem.Infrastructure.Repositories;
@@ -18,7 +19,7 @@ namespace InventoryManagementSystem.Infrastructure
     {
         public static void ConfigurePersistence(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<AuthenticationDbContext>(option =>
+            services.AddDbContext<IMSDbContext>(option =>
             {
                 option.UseSqlServer(configuration.GetConnectionString("connectionString"));
             });
@@ -30,14 +31,27 @@ namespace InventoryManagementSystem.Infrastructure
                 options.Password.RequireLowercase = false;
                 options.Password.RequireUppercase = false;
                 options.User.RequireUniqueEmail = true;
+                options.SignIn.RequireConfirmedEmail = false;
+
+               // options.Tokens.EmailConfirmationTokenProvider = "emailconfirmation";
             })
-            .AddEntityFrameworkStores<AuthenticationDbContext>()
-            .AddDefaultTokenProviders();
+            .AddEntityFrameworkStores<IMSDbContext>()
+            .AddDefaultTokenProviders()
+            .AddTokenProvider<EmailConfirmationTokenProvider<User>>("emailconfirmation");
+
+            //For Email Confirmation
+            //services.Configure<DataProtectionTokenProviderOptions>(opt =>
+            //opt.TokenLifespan = TimeSpan.FromHours(2));
+
+            //services.Configure<EmailConfirmationTokenProviderOptions>(opt =>
+            //    opt.TokenLifespan = TimeSpan.FromDays(3));
         }
 
         public static void ConfigureDependencyInjection(this IServiceCollection services)
         {
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IJWTManagerRepository, JWTManagerRepository>();
+            services.AddTransient<IProductRepository, ProductRepository>();
         }
 
         public static void ConfigureJWT(this IServiceCollection services, IConfiguration configuration)

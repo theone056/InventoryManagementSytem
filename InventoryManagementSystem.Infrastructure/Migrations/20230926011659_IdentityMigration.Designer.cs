@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace InventoryManagementSystem.Infrastructure.Migrations
 {
-    [DbContext(typeof(AuthenticationDbContext))]
+    [DbContext(typeof(IMSDbContext))]
     [Migration("20230926011659_IdentityMigration")]
     partial class IdentityMigration
     {
