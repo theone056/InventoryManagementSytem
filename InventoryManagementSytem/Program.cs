@@ -1,7 +1,14 @@
+using InventoryManagementSytem.Services.Home;
+using InventoryManagementSytem.Services.Home.Interface;
+using InventoryManagementSytem.Services.Product;
+using InventoryManagementSytem.Services;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.ConfigureDependencies(builder.Configuration);
 
 var app = builder.Build();
 

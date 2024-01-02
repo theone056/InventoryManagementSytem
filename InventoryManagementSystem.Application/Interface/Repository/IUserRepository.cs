@@ -12,6 +12,5 @@ namespace InventoryManagementSystem.Application.Interface.Repository
     {
         Task<IdentityResult> RegisterUser(UserRegistrationModel user);
         Task<bool> LoginUser(LoginUserModel user);
-       
     }
 }

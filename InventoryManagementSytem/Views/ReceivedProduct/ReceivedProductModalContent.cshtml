@@ -1,0 +1,30 @@
+﻿@model ReceivedProductViewModel
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="container-fluid">
+    <div class="row mb-3">
+        <label class="col-4 col-form-label" for="product-names">Date Received</label>
+        <div class="col-8">
+            <input type="datetime-local" asp-for="DateReceived" class="form-control" />
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-4 col-form-label" for="product-names">Product</label>
+        <div class="col-8">
+            <select class="form-select" id="product-names" asp-for="ProductID" asp-items="@(new SelectList(Model.Products,"Id","Val"))">
+                <option>Please select one</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <label class="col-4 col-form-label" for="product-quantity">Quantity</label>
+        <div class="col-8">
+            <input asp-for="Qty" class="form-control" />
+        </div>
+    </div>
+</div>

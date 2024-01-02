@@ -1,0 +1,47 @@
+﻿@using InventoryManagementSytem.Services.Models;
+@model ProductModel
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<input type="hidden" asp-for="code"/>
+
+<div class="container-fluid">
+    <div class="row mb-3">
+        <label class="col-md-2 col-form-label text-nowrap">@Html.DisplayNameFor(x=>x.productName)</label>
+        <div class="col-md-10">
+            @Html.TextBoxFor(x=>x.productName,null,new { @class="form-control" })
+            @Html.ValidationMessageFor(x=>x.productName,"", new{@class="text-danger"})
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-md-2 col-form-label text-nowrap">@Html.DisplayNameFor(x=>x.unit)</label>
+        <div class="col-md-10">
+            @Html.TextBoxFor(x=>x.unit,null,new { @class="form-control" })
+            @Html.ValidationMessageFor(x=>x.unit,"", new {@class="text-danger"})
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-md-2 col-form-label text-nowrap">@Html.DisplayNameFor(x=>x.cost)</label>
+        <div class="col-md-10">
+            @Html.TextBoxFor(x=>x.cost,null,new { @class="form-control" })
+            @Html.ValidationMessageFor(x=>x.cost, "", new {@class="text-danger"})
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-md-2 col-form-label text-nowrap">@Html.DisplayNameFor(x=>x.sellingPrice)</label>
+        <div class="col-md-10">
+            @Html.TextBoxFor(x=>x.sellingPrice,null,new { @class="form-control" })
+            @Html.ValidationMessageFor(x=>x.sellingPrice,"", new {@class="text-danger"})
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-md-2 col-form-label text-nowrap">@Html.DisplayNameFor(x=>x.remarks)</label>
+        <div class="col-md-10">
+            @Html.TextAreaFor(x=>x.remarks,3,5,new { @class="form-control" })
+        </div>
+    </div>
+</div>

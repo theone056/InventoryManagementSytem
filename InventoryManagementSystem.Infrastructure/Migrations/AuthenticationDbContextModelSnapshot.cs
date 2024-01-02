@@ -31,12 +31,17 @@ namespace InventoryManagementSystem.Infrastructure.Migrations
                     b.Property<double>("Cost")
                         .HasColumnType("float");
 
+                    b.Property<DateTimeOffset>("DateCreated")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTimeOffset?>("DateUpdated")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("ProductName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Remarks")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("SellingPrice")
@@ -62,8 +67,14 @@ namespace InventoryManagementSystem.Infrastructure.Migrations
                     b.Property<double>("Cost")
                         .HasColumnType("float");
 
+                    b.Property<DateTimeOffset>("DateCreated")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<DateTime>("DateReceived")
                         .HasColumnType("datetime2");
+
+                    b.Property<DateTimeOffset?>("DateUpdated")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("EncodedBy")
                         .IsRequired()
@@ -95,6 +106,12 @@ namespace InventoryManagementSystem.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTimeOffset>("DateCreated")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTimeOffset?>("DateUpdated")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<Guid>("ProductCode")
                         .HasColumnType("uniqueidentifier");
@@ -131,6 +148,12 @@ namespace InventoryManagementSystem.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTimeOffset>("DateCreated")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTimeOffset?>("DateUpdated")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<Guid>("ProductCode")
                         .HasColumnType("uniqueidentifier");

@@ -1,0 +1,80 @@
+﻿@model ReceivedProductViewModel
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+<div class="container-fluid">
+    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#receiveproduct-modal">
+        Receive Product
+    </button>
+    <div id="receiveproduct-table-container">
+        <table id="receiveproduct-table" class="table table-bordered table-responsive">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(x=>x.ReceivedProduct.FirstOrDefault().DateReceived)</th>
+                    <th>@Html.DisplayNameFor(x=>x.ReceivedProduct.FirstOrDefault().ProductCode)</th>
+                    <th>@Html.DisplayNameFor(x=>x.ReceivedProduct.FirstOrDefault().ProductName)</th>
+                    <th>@Html.DisplayNameFor(x=>x.ReceivedProduct.FirstOrDefault().Unit)</th>
+                    <th>@Html.DisplayNameFor(x=>x.ReceivedProduct.FirstOrDefault().Cost)</th>
+                    <th>@Html.DisplayNameFor(x=>x.ReceivedProduct.FirstOrDefault().Qty)</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in Model.ReceivedProduct)
+                {
+                    <tr>
+                        <td>@product.DateReceived</td>
+                        <td>@product.ProductCode</td>
+                        <td>@product.ProductName</td>
+                        <td>@product.Unit</td>
+                        <td>@product.Cost</td>
+                        <td>@product.Qty</td>
+                        <td>
+                            <a class="table-button-action" onclick="Receiveproduct.OnClickEdit('@product.ProductCode')" data-bs-toggle="modal" data-bs-target="#product-modal">
+                                <span class="material-symbols-outlined">
+                                    edit
+                                </span>
+                            </a>
+                            <a class="table-button-action" onclick="Receiveproduct.OnClickDelete('@product.ProductName')" data-bs-toggle="modal" data-bs-target="#product-modal-delete">
+                                <span class="material-symbols-outlined">
+                                    delete
+                                </span>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<div id="received-product-modal-container">
+    <div class="modal fade" id="receiveproduct-modal" tabindex="-1" aria-labelledby="receivedProductModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="receivedProductModal">Received Product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                   @Html.Partial("ReceivedProductModalContent")
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+                    <button type="submit" class="btn btn-primary" aria-label="Save">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script src="~/js/ReceivedProduct/ReceivedProductIndex.js"></script>
+}

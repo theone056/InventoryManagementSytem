@@ -52,6 +52,9 @@ namespace InventoryManagementSystem.Infrastructure
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IJWTManagerRepository, JWTManagerRepository>();
             services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddTransient<IReceivedProductRepository, ReceivedProductRepository>();
+            services.AddTransient<ISalesRepository, SalesRepository>();
+            services.AddTransient<IStockInventoryRepository, StockInventoryRepository>();
         }
 
         public static void ConfigureJWT(this IServiceCollection services, IConfiguration configuration)

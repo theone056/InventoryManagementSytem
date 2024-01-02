@@ -1,6 +1,9 @@
 ﻿using InventoryManagementSystem.Domain.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Data.Entity.Core.Objects;
+using System.Data.Entity.Infrastructure;
 
 namespace InventoryManagementSystem.Infrastructure.Context
 {
@@ -13,6 +16,8 @@ namespace InventoryManagementSystem.Infrastructure.Context
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<ItemCount>().HasNoKey().ToView(null);
+            builder.Entity<KeyValue>().HasNoKey().ToView(null);
             base.OnModelCreating(builder);
         }
 

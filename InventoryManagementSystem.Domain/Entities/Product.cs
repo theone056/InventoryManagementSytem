@@ -15,6 +15,8 @@ namespace InventoryManagementSystem.Domain.Entities
         public string Unit { get; set; }
         public double Cost { get; set; }
         public double SellingPrice { get; set; }
-        public string Remarks { get; set; }
+        public string? Remarks { get; set; }
+        public DateTimeOffset DateCreated { get; set; }
+        public DateTimeOffset? DateUpdated { get; set; }
     }
 }
