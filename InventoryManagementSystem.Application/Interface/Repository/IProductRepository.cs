@@ -1,10 +1,4 @@
-﻿using InventoryManagementSystem.Application.Models;
-using InventoryManagementSystem.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using InventoryManagementSystem.Domain.Entities;
 
 namespace InventoryManagementSystem.Application.Interface.Repository
 {
@@ -16,5 +10,6 @@ namespace InventoryManagementSystem.Application.Interface.Repository
         Task<bool> Delete(string ProductName, CancellationToken cancellationToken);
         ItemCount GetCount();
         List<KeyValue> GetProductNames();
+        bool Upsert(Product productModel, CancellationToken cancellationToken);
     }
 }

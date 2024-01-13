@@ -22,14 +22,44 @@ namespace InventoryManagementSystem.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("InventoryManagementSystem.Domain.Entities.ItemCount", b =>
+                {
+                    b.Property<int>("ProductCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ReceivedProductCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SalesCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StockCount")
+                        .HasColumnType("int");
+
+                    b.ToTable((string)null);
+
+                    b.ToView(null, (string)null);
+                });
+
+            modelBuilder.Entity("InventoryManagementSystem.Domain.Entities.KeyValue", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Val")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.ToTable((string)null);
+
+                    b.ToView(null, (string)null);
+                });
+
             modelBuilder.Entity("InventoryManagementSystem.Domain.Entities.Product", b =>
                 {
                     b.Property<Guid>("Code")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<double>("Cost")
-                        .HasColumnType("float");
 
                     b.Property<DateTimeOffset>("DateCreated")
                         .HasColumnType("datetimeoffset");
@@ -37,19 +67,21 @@ namespace InventoryManagementSystem.Infrastructure.Migrations
                     b.Property<DateTimeOffset?>("DateUpdated")
                         .HasColumnType("datetimeoffset");
 
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
                     b.Property<string>("ProductName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Remarks")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("SellingPrice")
-                        .HasColumnType("float");
-
                     b.Property<string>("Unit")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.HasKey("Code");
 
@@ -64,9 +96,6 @@ namespace InventoryManagementSystem.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<double>("Cost")
-                        .HasColumnType("float");
-
                     b.Property<DateTimeOffset>("DateCreated")
                         .HasColumnType("datetimeoffset");
 
@@ -78,25 +107,30 @@ namespace InventoryManagementSystem.Infrastructure.Migrations
 
                     b.Property<string>("EncodedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<Guid>("ProductCode")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("ProductName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<double>("Qty")
                         .HasColumnType("float");
 
-                    b.Property<string>("Unit")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
+                    b.HasIndex("ProductCode");
+
                     b.ToTable("ReceivedProducts");
+                });
+
+            modelBuilder.Entity("InventoryManagementSystem.Domain.Entities.ReceivedProductQuantity", b =>
+                {
+                    b.Property<double>("Qty")
+                        .HasColumnType("float");
+
+                    b.ToTable((string)null);
+
+                    b.ToView(null, (string)null);
                 });
 
             modelBuilder.Entity("InventoryManagementSystem.Domain.Entities.Sale", b =>
@@ -429,6 +463,17 @@ namespace InventoryManagementSystem.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("InventoryManagementSystem.Domain.Entities.ReceivedProduct", b =>
+                {
+                    b.HasOne("InventoryManagementSystem.Domain.Entities.Product", "Product")
+                        .WithMany("ReceivedProduct")
+                        .HasForeignKey("ProductCode")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -478,6 +523,11 @@ namespace InventoryManagementSystem.Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("InventoryManagementSystem.Domain.Entities.Product", b =>
+                {
+                    b.Navigation("ReceivedProduct");
                 });
 #pragma warning restore 612, 618
         }

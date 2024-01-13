@@ -1,0 +1,33 @@
+﻿@model List<ReceivedProductModel>
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<table id="receiveproduct-table" class="table table-bordered table-responsive">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(x => Model.FirstOrDefault().DateReceived)</th>
+            <th>@Html.DisplayNameFor(x => Model.FirstOrDefault().ProductCode)</th>
+            <th>@Html.DisplayNameFor(x => Model.FirstOrDefault().Product.ProductName)</th>
+            <th>@Html.DisplayNameFor(x => Model.FirstOrDefault().Product.Unit)</th>
+            <th>@Html.DisplayNameFor(x => Model.FirstOrDefault().Product.Price)</th>
+            <th>@Html.DisplayNameFor(x => Model.FirstOrDefault().Qty)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@product.DateReceived</td>
+                <td>@product.ProductCode</td>
+                <td>@product.Product.ProductName</td>
+                <td>@product.Product.Unit</td>
+                <td>@product.Product.Price</td>
+                <td>@product.Qty</td>
+            </tr>
+        }
+    </tbody>
+</table>

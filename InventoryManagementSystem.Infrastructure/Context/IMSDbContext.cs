@@ -1,9 +1,6 @@
 ﻿using InventoryManagementSystem.Domain.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Data.Entity.Core.Objects;
-using System.Data.Entity.Infrastructure;
 
 namespace InventoryManagementSystem.Infrastructure.Context
 {
@@ -18,6 +15,11 @@ namespace InventoryManagementSystem.Infrastructure.Context
         {
             builder.Entity<ItemCount>().HasNoKey().ToView(null);
             builder.Entity<KeyValue>().HasNoKey().ToView(null);
+            builder.Entity<ReceivedProductQuantity>().HasNoKey().ToView(null);
+            builder.Entity<Product>()
+                .HasMany(c => c.ReceivedProduct)
+                .WithOne(c => c.Product)
+                .HasForeignKey(c => c.ProductCode);
             base.OnModelCreating(builder);
         }
 

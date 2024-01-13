@@ -28,5 +28,26 @@ namespace InventoryManagementSytem.Controllers
                 Products = _productService.GetAllNames().Result
             });
         }
+
+        [HttpPost]
+        public IActionResult SaveReceivedProduct(ReceivedProductViewModel receivedProduct)
+        {
+            var result = _receivedProduct.Create(new ReceivedProductModel()
+            {
+                ProductCode = receivedProduct.ProductID,
+                Qty = receivedProduct.Qty,
+                DateReceived = receivedProduct.DateReceived,
+                DateCreated = DateTime.UtcNow,
+                EncodedBy = "Test Name"
+            }).Result;
+
+            if(!result)
+            {
+                
+            }
+
+            var receivedProducts = _receivedProduct.GetAll().Result;
+            return PartialView("ReceivedProductTable",receivedProducts);
+        }
     }
 }

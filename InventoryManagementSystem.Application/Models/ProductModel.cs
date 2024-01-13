@@ -12,7 +12,7 @@ namespace InventoryManagementSystem.Application.Models
         public string ProductName { get; set; }
         public string Unit { get; set; }
         public double Cost { get; set; }
-        public double SellingPrice { get; set; }
+        public double Price { get; set; }
         public string? Remarks { get; set; }
         public DateTimeOffset DateCreated { get; set; }
         public DateTimeOffset? DateUpdated { get; set; } = DateTimeOffset.Now;

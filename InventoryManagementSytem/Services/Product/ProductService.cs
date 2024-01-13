@@ -98,6 +98,25 @@ namespace InventoryManagementSytem.Services.Product
             }
         }
 
+        public async Task<bool> Update(ProductModel product)
+        {
+            using (var httpclient = _httpClientFactory.CreateClient("ProductService"))
+            {
+                var productJson = new StringContent(
+                JsonSerializer.Serialize(product),
+                Encoding.UTF8,
+                Application.Json);
+                var result = await httpclient.PostAsync("Product/Update", productJson);
+
+                if (result.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+
+                return false;
+            }
+        }
+
         public async Task<bool> Upsert(ProductModel product)
         {
             using (var httpclient = _httpClientFactory.CreateClient("ProductService"))

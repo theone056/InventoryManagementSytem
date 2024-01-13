@@ -50,11 +50,11 @@ namespace InventoryManagementSystem.Infrastructure.Repositories
             return false;
         }
 
-        public Task<Product> Get(Guid code, CancellationToken cancellationToken)
+        public async Task<Product> Get(Guid code, CancellationToken cancellationToken)
         {
             try
             {
-                return _context.Products.FirstOrDefaultAsync(x => x.Code == code, cancellationToken);
+                return await _context.Products.Where(x => x.Code == code).FirstOrDefaultAsync(cancellationToken);
             }
             catch (Exception ex)
             {
@@ -63,11 +63,11 @@ namespace InventoryManagementSystem.Infrastructure.Repositories
             return null;
         }
 
-        public Task<List<Product>> GetAll(CancellationToken cancellationToken)
+        public async Task<List<Product>> GetAll(CancellationToken cancellationToken)
         {
             try
             {
-                return _context.Products.ToListAsync(cancellationToken);
+                return await _context.Products.ToListAsync(cancellationToken);
             }
             catch(Exception ex)
             {
@@ -93,6 +93,38 @@ namespace InventoryManagementSystem.Infrastructure.Repositories
             }
 
             return false;
+        }
+
+        private void CheckValidData(Product product)
+        {
+            if(IsProductNameExist(product.ProductName, new CancellationToken()).Result && product.Code == Guid.Empty)
+            {
+                throw new Exception("Product name already exists");
+            }
+        }
+
+        public bool Upsert(Product product, CancellationToken cancellationToken)
+        {
+            try
+            {
+                CheckValidData(product);
+
+                if (IsProductNameExist(product.ProductName, cancellationToken).Result == false && Get(product.Code, cancellationToken).Result == null)
+                {
+                    Create(product);
+                    return true;
+                } 
+                else
+                {
+                    Update(product);
+                    return true;
+                }
+            }
+            catch(Exception ex)
+            {
+                throw;
+                //log
+            }
         }
     }
 }

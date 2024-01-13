@@ -1,5 +1,4 @@
-﻿@using InventoryManagementSytem.Services.Models;
-@model ProductModel
+﻿@model ProductModel
 
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -7,41 +6,34 @@
 @{
 }
 
-<input type="hidden" asp-for="code"/>
+<input type="hidden" asp-for="Code"/>
 
 <div class="container-fluid">
     <div class="row mb-3">
-        <label class="col-md-2 col-form-label text-nowrap">@Html.DisplayNameFor(x=>x.productName)</label>
+        <label class="col-md-2 col-form-label text-nowrap">@Html.DisplayNameFor(x=>x.ProductName)</label>
         <div class="col-md-10">
-            @Html.TextBoxFor(x=>x.productName,null,new { @class="form-control" })
-            @Html.ValidationMessageFor(x=>x.productName,"", new{@class="text-danger"})
+            @Html.TextBoxFor(x => x.ProductName, null, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.ProductName, "", new { @class = "text-danger" })
         </div>
     </div>
     <div class="row mb-3">
-        <label class="col-md-2 col-form-label text-nowrap">@Html.DisplayNameFor(x=>x.unit)</label>
+        <label class="col-md-2 col-form-label text-nowrap">@Html.DisplayNameFor(x=>x.Unit)</label>
         <div class="col-md-10">
-            @Html.TextBoxFor(x=>x.unit,null,new { @class="form-control" })
-            @Html.ValidationMessageFor(x=>x.unit,"", new {@class="text-danger"})
+            @Html.TextBoxFor(x => x.Unit, null, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Unit, "", new { @class = "text-danger" })
         </div>
     </div>
     <div class="row mb-3">
-        <label class="col-md-2 col-form-label text-nowrap">@Html.DisplayNameFor(x=>x.cost)</label>
+        <label class="col-md-2 col-form-label text-nowrap">@Html.DisplayNameFor(x=>x.Price)</label>
         <div class="col-md-10">
-            @Html.TextBoxFor(x=>x.cost,null,new { @class="form-control" })
-            @Html.ValidationMessageFor(x=>x.cost, "", new {@class="text-danger"})
+            @Html.TextBoxFor(x => x.Price, null, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Price, "", new { @class = "text-danger" })
         </div>
     </div>
     <div class="row mb-3">
-        <label class="col-md-2 col-form-label text-nowrap">@Html.DisplayNameFor(x=>x.sellingPrice)</label>
+        <label class="col-md-2 col-form-label text-nowrap">@Html.DisplayNameFor(x=>x.Remarks)</label>
         <div class="col-md-10">
-            @Html.TextBoxFor(x=>x.sellingPrice,null,new { @class="form-control" })
-            @Html.ValidationMessageFor(x=>x.sellingPrice,"", new {@class="text-danger"})
-        </div>
-    </div>
-    <div class="row mb-3">
-        <label class="col-md-2 col-form-label text-nowrap">@Html.DisplayNameFor(x=>x.remarks)</label>
-        <div class="col-md-10">
-            @Html.TextAreaFor(x=>x.remarks,3,5,new { @class="form-control" })
+            @Html.TextAreaFor(x => x.Remarks, 3, 5, new { @class = "form-control" })
         </div>
     </div>
 </div>

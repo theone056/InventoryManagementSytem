@@ -13,13 +13,13 @@ namespace InventoryManagementSystem.Domain.Entities
         [Key]
         public int Id { get; set; }
         public DateTime DateReceived { get; set; }
-        public Guid ProductCode { get; set; }
-        public string ProductName { get; set; }
-        public string Unit { get; set; }
         public double Qty { get; set; }
-        public double Cost { get; set; }
+        [StringLength(50)]
         public string EncodedBy { get; set; }
         public DateTimeOffset DateCreated { get; set; }
         public DateTimeOffset? DateUpdated { get; set; }
+        [ForeignKey("ProductCode")]
+        public Guid ProductCode { get; set; }
+        public Product? Product { get; set; }
     }
 }

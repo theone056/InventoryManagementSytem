@@ -23,7 +23,8 @@ namespace InventoryManagementSystem.API.Controllers
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll(CancellationToken ct)
         {
-            return Ok(await _receivedProductRepository.GetAll(ct));
+            var result = await _receivedProductRepository.GetAll(ct);
+            return Ok(result);
         }
 
         [HttpGet("Get")]
@@ -52,13 +53,25 @@ namespace InventoryManagementSystem.API.Controllers
             return BadRequest();
         }
 
+        [HttpPost("Upsert")]
+        public IActionResult Upsert(ReceivedProductModel receivedProduct, CancellationToken ct)
+        {
+            if (ModelState.IsValid)
+            {
+                var receivedProductModel = _mapper.Map<ReceivedProduct>(receivedProduct);
+                _receivedProductRepository.Upsert(receivedProductModel, ct);
+                return Ok();
+            }
+            return BadRequest();
+        }
+
         [HttpPut("Update")]
         public IActionResult Update(ReceivedProductModel receivedProduct, CancellationToken ct)
         {
             if (ModelState.IsValid)
             {
                 var receivedProductModel = _mapper.Map<ReceivedProduct>(receivedProduct);
-                var receivedProductResult = _receivedProductRepository.Get(receivedProductModel.ProductCode, ct).Result;
+                var receivedProductResult = _receivedProductRepository.Get(receivedProductModel.Product.Code, ct).Result;
                 if (receivedProductResult != null)
                 {
                     _receivedProductRepository.Update(receivedProductResult);
@@ -80,7 +93,7 @@ namespace InventoryManagementSystem.API.Controllers
             if (ModelState.IsValid)
             {
                 var receivedProductModel = _mapper.Map<ReceivedProduct>(receivedProduct);
-                var receivedProductResult = _receivedProductRepository.Get(receivedProductModel.ProductCode, ct).Result;
+                var receivedProductResult = _receivedProductRepository.Get(receivedProductModel.Product.Code, ct).Result;
                 if (receivedProductResult != null)
                 {
                     _receivedProductRepository.Delete(receivedProductResult);

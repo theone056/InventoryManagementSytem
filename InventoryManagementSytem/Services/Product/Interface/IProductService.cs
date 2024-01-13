@@ -12,6 +12,7 @@ namespace InventoryManagementSytem.Services.Product.Interface
         Task<bool> Create(ProductModel product);
 
         Task<bool> Upsert(ProductModel product);
+        Task<bool> Update(ProductModel product);
 
         Task<bool> Delete(string productName);
 

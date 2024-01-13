@@ -33,11 +33,7 @@ namespace InventoryManagementSytem.Controllers
             {
                 var result = _productService.Upsert(productModel).Result;
 
-                if (result)
-                {
-                    return RedirectToAction("Index");
-                }
-                else
+                if (!result)
                 {
                     listOfErrors.Add("Unable to create Product");
                 }
@@ -45,10 +41,11 @@ namespace InventoryManagementSytem.Controllers
             else
             {
                 listOfErrors.Add("Invalid Product");
-            }
-            
+            }       
+
             TempData["Erros"] = listOfErrors;
-            return RedirectToAction("Index");
+            var products = _productService.GetAll().Result;
+            return PartialView("ProductTable", products);
         }
 
         [HttpPost]
@@ -59,7 +56,8 @@ namespace InventoryManagementSytem.Controllers
 
             if (result)
             {
-                return RedirectToAction("Index");
+                var products = _productService.GetAll().Result;
+                return PartialView("ProductTable", products);
             }
             else
             {

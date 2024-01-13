@@ -74,15 +74,14 @@ namespace InventoryManagementSystem.API.Controllers
             if (ModelState.IsValid)
             {
                 var productModel = _mapper.Map<Product>(product);
-                if (_productRepository.IsProductNameExist(product.ProductName, ct).Result == false && _productRepository.Get(product.Code, ct).Result == null)
+                var result = _productRepository.Upsert(productModel,ct);
+                if(result)
                 {
-                    _productRepository.Create(productModel);
                     return Ok();
                 }
                 else
                 {
-                    _productRepository.Update(productModel);
-                    return Ok();
+                    return StatusCode(500);
                 }
             }
             return BadRequest();

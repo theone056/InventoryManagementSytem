@@ -11,5 +11,7 @@ namespace InventoryManagementSystem.Application.Interface.Repository
     {
         Task<ReceivedProduct> Get(Guid code, CancellationToken cancellationToken);
         Task<List<ReceivedProduct>> GetAll(CancellationToken cancellationToken);
+        void Upsert(ReceivedProduct product, CancellationToken cancellationToken);
+        void UpdateQuantity(ReceivedProduct product, CancellationToken cancellationToken);
     }
 }

@@ -1,32 +1,36 @@
-﻿using System.ComponentModel;
+﻿using InventoryManagementSytem.Services.Model;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace InventoryManagementSytem.Services.Models
 {
     public class ProductModel
     {
-        public Guid code { get; set; }
+        [JsonPropertyName("code")]
+        public Guid Code { get; set; }
 
         [Required]
         [DisplayName("Product Name")]
-        public string productName { get; set; }
+        [JsonPropertyName("productName")]
+        public string ProductName { get; set; }
 
         [Required]
         [DisplayName("Unit")]
-        public string unit { get; set; }
+        [JsonPropertyName("unit")]
+        public string Unit { get; set; }
 
         [Required]
-        [DisplayName("Cost")]
-        public double cost { get; set; }
-
-        [Required]
-        [DisplayName("Selling Price")]
-        public double sellingPrice { get; set; }
+        [DisplayName("Price")]
+        [JsonPropertyName("price")]
+        public double Price { get; set; }
 
         [DisplayName("Remarks")]
-        public string? remarks { get; set; }
+        [JsonPropertyName("remarks")]
+        public string? Remarks { get; set; }
 
-        public DateTimeOffset DateCreated { get; set; }
+        public DateTimeOffset DateCreated { get; set; } = DateTimeOffset.Now;
         public DateTimeOffset? DateUpdated { get; set; } = DateTimeOffset.Now;
+        public ICollection<ReceivedProductModel>? ReceivedProduct { get; set; }
     }
 }

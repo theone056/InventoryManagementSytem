@@ -62,9 +62,25 @@ namespace InventoryManagementSytem.Services.ReceivedProduct
             throw new NotImplementedException();
         }
 
-        public Task<bool> Upsert(ReceivedProductModel product)
+        public async Task<bool> Upsert(ReceivedProductModel product)
         {
-            throw new NotImplementedException();
+            using (var httpclient = _httpClientFactory.CreateClient("ReceivedProductService"))
+            {
+                var productJson = new StringContent(
+                JsonSerializer.Serialize(product),
+                Encoding.UTF8,
+                Application.Json);
+                var result = await httpclient.PostAsync("ReceivedProduct/Create", productJson);
+
+                if (result.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
         }
     }
 }
