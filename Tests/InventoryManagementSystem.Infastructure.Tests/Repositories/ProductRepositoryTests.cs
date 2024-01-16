@@ -1,4 +1,5 @@
-﻿using InventoryManagementSystem.Domain.Entities;
+﻿using AutoFixture;
+using InventoryManagementSystem.Domain.Entities;
 
 namespace InventoryManagementSystem.Infastructure.Tests.Repositories
 {
@@ -6,8 +7,12 @@ namespace InventoryManagementSystem.Infastructure.Tests.Repositories
     {
         public IProductRepository _productRepository;
         DbContextMock<IMSDbContext> _mockDbContext;
+        private readonly IFixture _fixture;
         public ProductRepositoryTests()
         {
+            _fixture = new Fixture();
+            _fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList().ForEach(b => _fixture.Behaviors.Remove(b));
+            _fixture.Behaviors.Add(new OmitOnRecursionBehavior());
             var productInitialData = new List<Product>() { new Product() { Code = new Guid("D1695562-EC1C-47A1-F9D4-08DC0E84CD34"), ProductName = "Test" }, new Product() { Code = new Guid("D1695562-EC1C-47A1-F9D4-08DC0E84CD53"), ProductName = "Test" } };
             _mockDbContext = new DbContextMock<IMSDbContext>(
                 new DbContextOptionsBuilder<IMSDbContext>().Options
@@ -53,7 +58,11 @@ namespace InventoryManagementSystem.Infastructure.Tests.Repositories
         [Fact]
         public void Upsert_Insert_Returns_True()
         {
-            var result = _productRepository.Upsert(new Product() { Code = new Guid(), ProductName = "Test 2", Price = 100, Unit = "Pcs"}, It.IsAny<CancellationToken>());
+            var product = _fixture.Build<Product>()
+                                  .With(x=>x.ProductName, "Test Product Name")
+                                  .Create();
+
+            var result = _productRepository.Upsert(product, It.IsAny<CancellationToken>());
 
             Assert.True(result);
         }
@@ -61,7 +70,10 @@ namespace InventoryManagementSystem.Infastructure.Tests.Repositories
         [Fact]
         public void Upsert_Update_Returns_True()
         {
-            var result = _productRepository.Upsert(new Product() { Code = new Guid("D1695562-EC1C-47A1-F9D4-08DC0E84CD53"), ProductName = "Test 2", Price = 100, Unit = "Pcs" }, It.IsAny<CancellationToken>());
+            var product = _fixture.Build<Product>()
+                         .With(x => x.ProductName, "Test Product Name")
+                         .Create();
+            var result = _productRepository.Upsert(product, It.IsAny<CancellationToken>());
 
             Assert.True(result);
         }
