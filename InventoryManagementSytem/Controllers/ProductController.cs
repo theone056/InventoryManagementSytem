@@ -28,22 +28,22 @@ namespace InventoryManagementSytem.Controllers
         [HttpPost]
         public IActionResult AddProductModal(ProductModel productModel)
         {
-            var listOfErrors = new List<string>();
+            var Error = string.Empty;
             if (ModelState.IsValid)
             {
                 var result = _productService.Upsert(productModel).Result;
 
                 if (!result)
                 {
-                    listOfErrors.Add("Unable to create Product");
+                    Error = "Unable to create Product";
                 }
             }
             else
             {
-                listOfErrors.Add("Invalid Product");
+                Error = "Invalid Product";
             }       
 
-            TempData["Erros"] = listOfErrors;
+            TempData["Error"] = Error;
             var products = _productService.GetAll().Result;
             return PartialView("ProductTable", products);
         }

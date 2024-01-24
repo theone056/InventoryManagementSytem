@@ -21,33 +21,12 @@
     </symbol>
 </svg>
 
-<div class="alert alert-primary d-flex align-items-center" role="alert">
-    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill" /></svg>
-    <div>
-        An example alert with an icon
-    </div>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-<div class="alert alert-success d-flex align-items-center" role="alert">
-    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill" /></svg>
-    <div>
-        An example success alert with an icon
-    </div>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-<div class="alert alert-warning d-flex align-items-center" role="alert">
-    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill" /></svg>
-    <div>
-        An example warning alert with an icon
-    </div>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-<div class="alert alert-danger d-flex align-items-center" role="alert">
+<div id="ErrorDisplay" class="alert alert-danger d-flex align-items-center position-fixed top-0 end-0 p-3 m-3 fade" role="alert" style="display:none">
     <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill" /></svg>
     <div>
-        An example danger alert with an icon
+        Failed Creating Product
     </div>
-     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 
 
@@ -95,7 +74,7 @@
           data-ajax-mode="replace"
           data-ajax-update="#product-table-container"
           data-ajax-success ="Product.OnSuccess"
-          data-ajax-failure ="Product.Onfailure"
+          data-ajax-failure="Product.OnFailure"
           id="product-form">
         <div class="modal fade" id="product-modal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">

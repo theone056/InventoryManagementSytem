@@ -46,7 +46,14 @@
     }
 
     function OnFailure() {
+        $("#ErrorDisplay").addClass("show");
 
+        setTimeout(() => {
+            var myAlert = document.getElementById('ErrorDisplay')
+            var bsAlert = new bootstrap.Alert(myAlert)
+            bsAlert.close();
+        }, 1500);
+     
     }
 
     function OnClickDelete(productName) {

@@ -13,13 +13,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InventoryManagementSystem.D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InventoryManagementSystem.Application", "InventoryManagementSystem.Application\InventoryManagementSystem.Application.csproj", "{06911F01-A2CC-480A-A441-5A3D11CB9C6C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryManagementSystem.API.Tests", "Tests\InventoryManagementSystem.API.Tests\InventoryManagementSystem.API.Tests.csproj", "{0D84846B-4F06-4E5F-B529-A766D64A48EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InventoryManagementSystem.API.Tests", "Tests\InventoryManagementSystem.API.Tests\InventoryManagementSystem.API.Tests.csproj", "{0D84846B-4F06-4E5F-B529-A766D64A48EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryManagementSystem.Application.Tests", "Tests\InventoryManagementSystem.Application.Tests\InventoryManagementSystem.Application.Tests.csproj", "{115206C0-A207-4F68-8D01-4F09BBAF82B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InventoryManagementSystem.Application.Tests", "Tests\InventoryManagementSystem.Application.Tests\InventoryManagementSystem.Application.Tests.csproj", "{115206C0-A207-4F68-8D01-4F09BBAF82B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryManagementSystem.Infastructure.Tests", "Tests\InventoryManagementSystem.Infastructure.Tests\InventoryManagementSystem.Infastructure.Tests.csproj", "{257DC96B-4A5F-4AF2-8FEC-9224C2E2AFDF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InventoryManagementSystem.Infastructure.Tests", "Tests\InventoryManagementSystem.Infastructure.Tests\InventoryManagementSystem.Infastructure.Tests.csproj", "{257DC96B-4A5F-4AF2-8FEC-9224C2E2AFDF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryManagementSystem.Web.Tests", "Tests\InventoryManagementSystem.Web.Tests\InventoryManagementSystem.Web.Tests.csproj", "{BADD88D0-A36D-466D-B790-DB00F4D912A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InventoryManagementSystem.Web.Tests", "Tests\InventoryManagementSystem.Web.Tests\InventoryManagementSystem.Web.Tests.csproj", "{BADD88D0-A36D-466D-B790-DB00F4D912A5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{FFD1156A-55A1-4EC7-A24F-DE26C46F109F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -66,6 +68,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0D84846B-4F06-4E5F-B529-A766D64A48EC} = {FFD1156A-55A1-4EC7-A24F-DE26C46F109F}
+		{115206C0-A207-4F68-8D01-4F09BBAF82B3} = {FFD1156A-55A1-4EC7-A24F-DE26C46F109F}
+		{257DC96B-4A5F-4AF2-8FEC-9224C2E2AFDF} = {FFD1156A-55A1-4EC7-A24F-DE26C46F109F}
+		{BADD88D0-A36D-466D-B790-DB00F4D912A5} = {FFD1156A-55A1-4EC7-A24F-DE26C46F109F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {70BA4CA2-F20B-4A80-AB69-D5CAE0CC5E99}
