@@ -9,5 +9,11 @@ namespace InventoryManagementSytem.Controllers
         {
             return View();
         }
+
+        [Route("Sales/Purchase")]
+        public IActionResult Purchase()
+        {
+            return View();
+        }
     }
 }
