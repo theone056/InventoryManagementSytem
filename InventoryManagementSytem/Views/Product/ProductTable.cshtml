@@ -27,14 +27,10 @@
                 <td>@product.Remarks</td>
                 <td>
                     <a class="table-button-action" onclick="Product.OnClickEdit('@product.Code')" data-bs-toggle="modal" data-bs-target="#product-modal">
-                        <span class="material-symbols-outlined">
-                            edit
-                        </span>
+                       <i class="bi bi-pencil"></i>
                     </a>
                     <a class="table-button-action" onclick="Product.OnClickDelete('@product.ProductName')" data-bs-toggle="modal" data-bs-target="#product-modal-delete">
-                        <span class="material-symbols-outlined">
-                            delete
-                        </span>
+                       <i class="bi bi-trash"></i>
                     </a>
                 </td>
             </tr>
