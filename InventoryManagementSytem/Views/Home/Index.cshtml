@@ -15,47 +15,22 @@
     </h5>
     <div class="card-body">
         <div class="row">
-            <div class="card col-2 mx-1 my-auto bg-info bg-opacity-50">
-                <div class="row g-0">
-                    <div class="col-md-4 my-auto">
-                        <i class="bi bi-box icons-big-size"></i>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body text-center">
-                            <h2>@Model.ProductCount</h2>
-                            <span class="card-title">Total Products</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card col-2 mx-1 my-auto bg-info bg-opacity-50">
-                <div class="row g-0">
-                    <div class="col-md-4 my-auto">
-                        <i class="bi bi-box icons-big-size"></i>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body text-center">
-                            <h2>@Model.SalesCount</h2>
-                            <span class="card-title">Low Stock Products</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card col-2 mx-1 my-auto bg-info bg-opacity-50">
-                <div class="row g-0">
-                    <div class="col-md-4 my-auto">
-                        <i class="bi bi-box icons-big-size"></i>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body text-center">
-                            <h2>@Model.StockCount</h2>
-                            <span class="card-title">Out of Stocks</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+           @await Html.PartialAsync("_SummaryCard", new SummaryCardViewModel(){
+               Title = "Total Product",
+               Value = Model.ProductCount
+           })
+
+            @await Html.PartialAsync("_SummaryCard", new SummaryCardViewModel()
+           {
+               Title = "Low Stock Products",
+               Value = 0
+           })
+            @await Html.PartialAsync("_SummaryCard", new SummaryCardViewModel()
+           {
+               Title = "Out of Stocks",
+               Value = 0
+           })
         </div>
     </div>
-   
 </div>
 
