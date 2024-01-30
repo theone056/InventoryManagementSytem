@@ -2,78 +2,194 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-    Layout = null;
+    Layout = "_LayoutPOS";
 }
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - InventoryManagementSytem</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/InventoryManagementSytem.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/lib/Datatables/datatables.css" />
-    <link href="~/lib/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet" />
-</head>
-<body>
-    <div class="container-fluid">
-        <main role="main" class="pb-3">
-            <div class="row flex-nowrap">
-                <form>
-                    <div class="row mt-5 d-flex justify-content-center">
-                        <div class="col-3">
-                            <label class="form-label">Product</label>
-                            <input class="form-control" type="text" />
-                        </div>
-                        <div class="col-1">
-                            <label class="form-label">Quantity</label>
-                            <input class="form-control" type="number" />
-                        </div>
-                        <div class="d-flex flex-column justify-content-end" style="width:5rem;">
-                            <button class="btn btn-primary" type="submit">Add</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="row flex-nowrap d-flex justify-content-center m-5">
-                <table class="table table-responsive table-bordered w-75">
-                    <thead>
-                        <tr>
-                            <th>Product ID</th>
-                            <th>Product Name</th>
-                            <th>Qty</th>
-                            <th>Price</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Test 1</td>
-                            <td>Test 2</td>
-                            <td>Test 3</td>
-                            <td>Test 4</td>
-                        </tr>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td>Total</td>
-                            <td></td>
-                            <td></td>
-                            <td>123</td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
-        </main>
+<div class="row bg-light pt-2">
+    <div class="col-3"></div>
+    <div class="col-5  px-5">
+        <ul class="list-group list-group-horizontal list-unstyled">
+            <li class="list-group-item border-0 bg-transparent">
+                <a class="text-decoration-none text-black" href="#"><i class="bi-list text-primary"></i>Sales List</a>
+            </li>
+            <li class="list-group-item border-0 bg-transparent">
+                <a class="text-decoration-none text-black" href="#"><i class="bi-receipt text-primary"></i>New Invoice</a>
+            </li>
+            <li class="list-group-item border-0 bg-transparent">
+                <a class="text-decoration-none text-black" href="#"><i class="bi-box text-primary"></i>Product List</a>
+            </li>
+        </ul>
     </div>
+    <div class="col-4">
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-    <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="~/lib/Datatables/datatables.js"></script>
-</body>
-</html>
+    </div>
+</div>
+
+<div class="row flex-nowrap">
+    <div class="col-7 bg-light mx-5">
+        <div class="col-12">
+            <h4 class="text-dark"><i class="bi-cart text-primary"></i>Sales Invoice</h4>
+            <div class="row flex-nowrap">
+                <div class="col py-3" style="height:25rem;overflow:auto">
+                    <div class="row flex-nowrap d-flex justify-content-center m-3">
+                        <table class="table table-responsive table-bordered">
+                            <thead class="table-primary position-sticky" style="top:-20px;z-index:1;">
+                                <tr>
+                                    <th>Product ID</th>
+                                    <th>Product Name</th>
+                                    <th>Qty</th>
+                                    <th>Price</th>
+                                    <th>SubTotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Test 1</td>
+                                    <td>Test 2</td>
+                                    <td>Test 3</td>
+                                    <td>Test 4</td>
+                                    <td>Test 5</td>
+                                </tr>
+                                <tr>
+                                    <td>Test 1</td>
+                                    <td>Test 2</td>
+                                    <td>Test 3</td>
+                                    <td>Test 4</td>
+                                    <td>Test 5</td>
+                                </tr>
+                                <tr>
+                                    <td>Test 1</td>
+                                    <td>Test 2</td>
+                                    <td>Test 3</td>
+                                    <td>Test 4</td>
+                                    <td>Test 5</td>
+                                </tr>
+                                <tr>
+                                    <td>Test 1</td>
+                                    <td>Test 2</td>
+                                    <td>Test 3</td>
+                                    <td>Test 4</td>
+                                    <td>Test 5</td>
+                                </tr>
+                                <tr>
+                                    <td>Test 1</td>
+                                    <td>Test 2</td>
+                                    <td>Test 3</td>
+                                    <td>Test 4</td>
+                                    <td>Test 5</td>
+                                </tr>
+                                <tr>
+                                    <td>Test 1</td>
+                                    <td>Test 2</td>
+                                    <td>Test 3</td>
+                                    <td>Test 4</td>
+                                    <td>Test 5</td>
+                                </tr>
+                                <tr>
+                                    <td>Test 1</td>
+                                    <td>Test 2</td>
+                                    <td>Test 3</td>
+                                    <td>Test 4</td>
+                                    <td>Test 5</td>
+                                </tr>
+                                <tr>
+                                    <td>Test 1</td>
+                                    <td>Test 2</td>
+                                    <td>Test 3</td>
+                                    <td>Test 4</td>
+                                    <td>Test 5</td>
+                                </tr>
+                                <tr>
+                                    <td>Test 1</td>
+                                    <td>Test 2</td>
+                                    <td>Test 3</td>
+                                    <td>Test 4</td>
+                                    <td>Test 5</td>
+                                </tr>
+                                <tr>
+                                    <td>Test 1</td>
+                                    <td>Test 2</td>
+                                    <td>Test 3</td>
+                                    <td>Test 4</td>
+                                    <td>Test 5</td>
+                                </tr>
+                                <tr>
+                                    <td>Test 1</td>
+                                    <td>Test 2</td>
+                                    <td>Test 3</td>
+                                    <td>Test 4</td>
+                                    <td>Test 5</td>
+                                </tr>
+                                <tr>
+                                    <td>Test 1</td>
+                                    <td>Test 2</td>
+                                    <td>Test 3</td>
+                                    <td>Test 4</td>
+                                    <td>Test 5</td>
+                                </tr>
+                                <tr>
+                                    <td>Test 1</td>
+                                    <td>Test 2</td>
+                                    <td>Test 3</td>
+                                    <td>Test 4</td>
+                                    <td>Test 5</td>
+                                </tr>
+                                <tr>
+                                    <td>Test 1</td>
+                                    <td>Test 2</td>
+                                    <td>Test 3</td>
+                                    <td>Test 4</td>
+                                    <td>Test 5</td>
+                                </tr>
+                                <tr>
+                                    <td>Test 1</td>
+                                    <td>Test 2</td>
+                                    <td>Test 3</td>
+                                    <td>Test 4</td>
+                                    <td>Test 5</td>
+                                </tr>
+                                <tr>
+                                    <td>Test 1</td>
+                                    <td>Test 2</td>
+                                    <td>Test 3</td>
+                                    <td>Test 4</td>
+                                    <td>Test 5</td>
+                                </tr>
+                                <tr>
+                                    <td>Test 1</td>
+                                    <td>Test 2</td>
+                                    <td>Test 3</td>
+                                    <td>Test 4</td>
+                                    <td>Test 5</td>
+                                </tr>
+                                <tr>
+                                    <td>Test 1</td>
+                                    <td>Test 2</td>
+                                    <td>Test 3</td>
+                                    <td>Test 4</td>
+                                    <td>Test 5</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 mt-5">
+            <div class="card mx-5 p-5">
+                <div class="row">
+                    <div class="card col-4 p-5">
+
+                    </div>
+                    <div class="card col-4 p-5">
+                    </div>
+                    <div class="card col-4 p-5">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-4 bg-light flex-grow-1 me-5">
+       Test
+    </div>
+</div>
+

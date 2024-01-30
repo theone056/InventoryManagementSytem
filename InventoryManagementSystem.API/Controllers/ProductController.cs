@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using InventoryManagementSystem.API.Filters;
 using InventoryManagementSystem.Application.Interface.Repository;
 using InventoryManagementSystem.Application.Models;
 using InventoryManagementSystem.Domain.Entities;
@@ -45,6 +46,8 @@ namespace InventoryManagementSystem.API.Controllers
         [HttpGet("Get")]
         [ProducesResponseType(typeof(Product),StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [TypeFilter(typeof(ParameterValidation))]
         public async Task<IActionResult> GetProduct(Guid guid,CancellationToken ct)
         {
             var productresult = await _productRepository.Get(guid,ct);
