@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using InventoryManagementSystem.API.Filters;
 using InventoryManagementSystem.Application.Interface.Repository;
 using InventoryManagementSystem.Application.Models;
 using InventoryManagementSystem.Domain.Entities;
@@ -22,24 +23,31 @@ namespace InventoryManagementSystem.API.Controllers
         }
 
         [HttpGet("GetAll")]
+        [ProducesResponseType(typeof(List<Product>),StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAll(CancellationToken ct)
         {
             return Ok(await _productRepository.GetAll(ct));
         }
 
         [HttpGet("GetCount")]
+        [ProducesResponseType(typeof(ItemCount),StatusCodes.Status200OK)]
         public IActionResult GetCount(CancellationToken ct)
         {
             return Ok(_productRepository.GetCount());
         }
 
         [HttpGet("GetProductNames")]
+        [ProducesResponseType(typeof(List<KeyValue>),StatusCodes.Status200OK)]
         public IActionResult GetProductNames(CancellationToken ct)
         {
             return Ok(_productRepository.GetProductNames());
         }
 
         [HttpGet("Get")]
+        [ProducesResponseType(typeof(Product),StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [TypeFilter(typeof(ParameterValidation))]
         public async Task<IActionResult> GetProduct(Guid guid,CancellationToken ct)
         {
             var productresult = await _productRepository.Get(guid,ct);
@@ -54,6 +62,7 @@ namespace InventoryManagementSystem.API.Controllers
         }
 
         [HttpPost("Create")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult Create(ProductModel product, CancellationToken ct)
         {
             if(ModelState.IsValid)
@@ -69,6 +78,9 @@ namespace InventoryManagementSystem.API.Controllers
         }
 
         [HttpPost("Upsert")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult Upsert(ProductModel product, CancellationToken ct)
         {
             if (ModelState.IsValid)
@@ -88,6 +100,9 @@ namespace InventoryManagementSystem.API.Controllers
         }
 
         [HttpPut("Update")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult Update(ProductModel product, CancellationToken ct)
         {
             if (ModelState.IsValid)
@@ -110,6 +125,7 @@ namespace InventoryManagementSystem.API.Controllers
 
 
         [HttpDelete("Delete")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Delete(string productName, CancellationToken ct)
         {
             await _productRepository.Delete(productName, ct);

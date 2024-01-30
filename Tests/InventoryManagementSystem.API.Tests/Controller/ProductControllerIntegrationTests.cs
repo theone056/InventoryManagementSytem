@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using Moq;
+using System.Net;
 
 namespace InventoryManagementSystem.API.Tests.Controller
 {
@@ -20,6 +21,8 @@ namespace InventoryManagementSystem.API.Tests.Controller
 
             //Assert
             response.Should().BeSuccessful();
+            Assert.True(response.IsSuccessStatusCode);
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
     }
 }
