@@ -1,12 +1,21 @@
 using InventoryManagementSystem.Application;
 using InventoryManagementSystem.Infrastructure;
 using InventoryManagementSystem.Infrastructure.Context;
-
+using Serilog;
 public class Program
 {
     private static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+
+        //Serilog
+
+        builder.Host.UseSerilog((HostBuilderContext context, IServiceProvider services, LoggerConfiguration loggerConfiguration) =>
+        {
+            loggerConfiguration
+                                .ReadFrom.Configuration(context.Configuration)
+                                .ReadFrom.Services(services);
+        });
 
         // Add services to the container.
         builder.Services.RegisterDependencies(builder.Configuration);
@@ -19,6 +28,7 @@ public class Program
         builder.Services.AddMvc().AddNewtonsoftJson(
             options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
+
 
         var app = builder.Build();
 

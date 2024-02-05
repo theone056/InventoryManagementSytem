@@ -3,6 +3,7 @@ using InventoryManagementSystem.Application.Models;
 using InventoryManagementSystem.Domain.Entities;
 using InventoryManagementSystem.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,20 +15,37 @@ namespace InventoryManagementSystem.Infrastructure.Repositories
     public class ProductRepository : BaseRepository<Product>, IProductRepository
     {
         private readonly IMSDbContext _context;
-        public ProductRepository(IMSDbContext context) : base(context)
+        private readonly ILogger<ProductRepository> _logger;
+        public ProductRepository(IMSDbContext context, ILogger<ProductRepository> logger) : base(context)
         {
             _context = context;
+            _logger = logger;
         }
 
         public List<KeyValue> GetProductNames()
         {
-            return _context.Set<KeyValue>().FromSqlRaw("EXEC dbo.sproc_Get_Products").AsEnumerable().ToList();
+            try
+            {
+                return _context.Set<KeyValue>().FromSqlRaw("EXEC dbo.sproc_Get_Products").AsEnumerable().ToList();
+            }
+            catch (Exception ex) {
+                _logger.LogError(ex,ex.Message);
+                throw new Exception(ex.Message,ex);
+            }
         }
 
         public ItemCount GetCount()
         {
-            var result = _context.Set<ItemCount>().FromSqlRaw(@"EXEC [dbo].[sproc_Total_Items]").AsEnumerable().FirstOrDefault();
-            return result;
+            try
+            {
+                var result = _context.Set<ItemCount>().FromSqlRaw(@"EXEC [dbo].[sproc_Total_Items]").AsEnumerable().FirstOrDefault();
+                return result;
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                throw new Exception(ex.Message,ex); 
+            }
         }
 
         public async Task<bool> Delete(string ProductName, CancellationToken cancellationToken)
@@ -44,7 +62,8 @@ namespace InventoryManagementSystem.Infrastructure.Repositories
             }
             catch (Exception ex)
             {
-                
+                _logger.LogError(ex, ex.Message);
+                throw new Exception(ex.Message,ex);
             }
 
             return false;
@@ -58,9 +77,9 @@ namespace InventoryManagementSystem.Infrastructure.Repositories
             }
             catch (Exception ex)
             {
-
+                _logger.LogError(ex,ex.Message);
+                throw new Exception(ex.Message, ex);
             }
-            return null;
         }
 
         public async Task<List<Product>> GetAll(CancellationToken cancellationToken)
@@ -71,9 +90,9 @@ namespace InventoryManagementSystem.Infrastructure.Repositories
             }
             catch(Exception ex)
             {
-                
+                _logger.LogError(ex, ex.Message);
+                throw new Exception(ex.Message, ex);
             }
-            return null;
         }
 
         public async Task<bool> IsProductNameExist(string ProductName, CancellationToken cancellationToken)
@@ -89,7 +108,8 @@ namespace InventoryManagementSystem.Infrastructure.Repositories
             }
             catch (Exception ex)
             {
-
+                _logger.LogError(ex, ex.Message);
+                throw new Exception(ex.Message, ex);
             }
 
             return false;
@@ -122,8 +142,8 @@ namespace InventoryManagementSystem.Infrastructure.Repositories
             }
             catch(Exception ex)
             {
-                throw;
-                //log
+                _logger.LogError(ex,ex.Message);
+                throw new Exception(ex.Message, ex);
             }
         }
     }
