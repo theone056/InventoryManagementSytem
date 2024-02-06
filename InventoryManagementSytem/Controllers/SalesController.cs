@@ -1,9 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using InventoryManagementSytem.Models;
+using InventoryManagementSytem.Services.Product.Interface;
+using Microsoft.AspNetCore.Mvc;
 
 namespace InventoryManagementSytem.Controllers
 {
     public class SalesController : Controller
     {
+        private readonly IProductService _productService;
+        public SalesController(IProductService productService)
+        {
+            _productService = productService;
+        }
         [Route("Sales")]
         public IActionResult Index()
         {
@@ -11,9 +19,13 @@ namespace InventoryManagementSytem.Controllers
         }
 
         [Route("Sales/Purchase")]
-        public IActionResult Purchase()
+        public async Task<IActionResult> Purchase()
         {
-            return View();
+            var products = await _productService.GetAllNames();
+            return View(new PurchaseViewModel()
+            {
+                Products = products
+            });
         }
     }
 }

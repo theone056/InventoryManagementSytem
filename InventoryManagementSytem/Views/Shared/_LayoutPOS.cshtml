@@ -18,9 +18,9 @@
     <link href="~/lib/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet" />
     @await RenderSectionAsync("Styles",required:false)
 </head>
-<body>
-    <div class="container-fluid bg-dark bg-opacity-10">
-        <main role="main">
+<body style="overflow:hidden">
+    <div class="container-fluid bg-dark bg-opacity-10" style="height:100vh">
+        <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>

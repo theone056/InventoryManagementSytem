@@ -1,6 +1,7 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@model PurchaseViewModel
 @{
     Layout = "_LayoutPOS";
 }
@@ -24,14 +25,14 @@
     </div>
 </div>
 
-<div class="row flex-nowrap">
-    <div class="col-7 bg-light mx-5">
+<div class="row flex-nowrap pt-5">
+    <div class="col-7 bg-light mx-5 p-4">
         <div class="col-12">
             <h4 class="text-dark"><i class="bi-cart text-primary"></i>Sales Invoice</h4>
             <div class="row flex-nowrap">
                 <div class="col py-3" style="height:25rem;overflow:auto">
                     <div class="row flex-nowrap d-flex justify-content-center m-3">
-                        <table class="table table-responsive table-bordered">
+                        <table class="table table-responsive table-bordered" id="purchase-table">
                             <thead class="table-primary position-sticky" style="top:-20px;z-index:1;">
                                 <tr>
                                     <th>Product ID</th>
@@ -39,135 +40,10 @@
                                     <th>Qty</th>
                                     <th>Price</th>
                                     <th>SubTotal</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Test 1</td>
-                                    <td>Test 2</td>
-                                    <td>Test 3</td>
-                                    <td>Test 4</td>
-                                    <td>Test 5</td>
-                                </tr>
-                                <tr>
-                                    <td>Test 1</td>
-                                    <td>Test 2</td>
-                                    <td>Test 3</td>
-                                    <td>Test 4</td>
-                                    <td>Test 5</td>
-                                </tr>
-                                <tr>
-                                    <td>Test 1</td>
-                                    <td>Test 2</td>
-                                    <td>Test 3</td>
-                                    <td>Test 4</td>
-                                    <td>Test 5</td>
-                                </tr>
-                                <tr>
-                                    <td>Test 1</td>
-                                    <td>Test 2</td>
-                                    <td>Test 3</td>
-                                    <td>Test 4</td>
-                                    <td>Test 5</td>
-                                </tr>
-                                <tr>
-                                    <td>Test 1</td>
-                                    <td>Test 2</td>
-                                    <td>Test 3</td>
-                                    <td>Test 4</td>
-                                    <td>Test 5</td>
-                                </tr>
-                                <tr>
-                                    <td>Test 1</td>
-                                    <td>Test 2</td>
-                                    <td>Test 3</td>
-                                    <td>Test 4</td>
-                                    <td>Test 5</td>
-                                </tr>
-                                <tr>
-                                    <td>Test 1</td>
-                                    <td>Test 2</td>
-                                    <td>Test 3</td>
-                                    <td>Test 4</td>
-                                    <td>Test 5</td>
-                                </tr>
-                                <tr>
-                                    <td>Test 1</td>
-                                    <td>Test 2</td>
-                                    <td>Test 3</td>
-                                    <td>Test 4</td>
-                                    <td>Test 5</td>
-                                </tr>
-                                <tr>
-                                    <td>Test 1</td>
-                                    <td>Test 2</td>
-                                    <td>Test 3</td>
-                                    <td>Test 4</td>
-                                    <td>Test 5</td>
-                                </tr>
-                                <tr>
-                                    <td>Test 1</td>
-                                    <td>Test 2</td>
-                                    <td>Test 3</td>
-                                    <td>Test 4</td>
-                                    <td>Test 5</td>
-                                </tr>
-                                <tr>
-                                    <td>Test 1</td>
-                                    <td>Test 2</td>
-                                    <td>Test 3</td>
-                                    <td>Test 4</td>
-                                    <td>Test 5</td>
-                                </tr>
-                                <tr>
-                                    <td>Test 1</td>
-                                    <td>Test 2</td>
-                                    <td>Test 3</td>
-                                    <td>Test 4</td>
-                                    <td>Test 5</td>
-                                </tr>
-                                <tr>
-                                    <td>Test 1</td>
-                                    <td>Test 2</td>
-                                    <td>Test 3</td>
-                                    <td>Test 4</td>
-                                    <td>Test 5</td>
-                                </tr>
-                                <tr>
-                                    <td>Test 1</td>
-                                    <td>Test 2</td>
-                                    <td>Test 3</td>
-                                    <td>Test 4</td>
-                                    <td>Test 5</td>
-                                </tr>
-                                <tr>
-                                    <td>Test 1</td>
-                                    <td>Test 2</td>
-                                    <td>Test 3</td>
-                                    <td>Test 4</td>
-                                    <td>Test 5</td>
-                                </tr>
-                                <tr>
-                                    <td>Test 1</td>
-                                    <td>Test 2</td>
-                                    <td>Test 3</td>
-                                    <td>Test 4</td>
-                                    <td>Test 5</td>
-                                </tr>
-                                <tr>
-                                    <td>Test 1</td>
-                                    <td>Test 2</td>
-                                    <td>Test 3</td>
-                                    <td>Test 4</td>
-                                    <td>Test 5</td>
-                                </tr>
-                                <tr>
-                                    <td>Test 1</td>
-                                    <td>Test 2</td>
-                                    <td>Test 3</td>
-                                    <td>Test 4</td>
-                                    <td>Test 5</td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -188,8 +64,24 @@
             </div>
         </div>
     </div>
-    <div class="col-4 bg-light flex-grow-1 me-5">
-       Test
+    <div class="col-4 bg-light flex-grow-1 me-5 p-3  overflow-auto" style="height:46rem">
+        <div class="row mb-3 d-flex justify-content-end">
+            <label class="col-md-2 col-form-label text-nowrap text-end" for="product-search">Search:</label>
+            <div class="col-md-6">
+                <input class="form-control" name="product-search" id="product-search" placeholder="search..." />
+            </div>
+        </div>
+       <div class="d-flex flex-wrap align-items-center">
+           @foreach(var product in Model.Products)
+            {
+                <button class="btn btn-light card col-4 p-5 text-center text-nowrap align-items-center" id="@product.Id" onclick="Sales.OnAddProduct('@product.Id')">
+                    @product.Val
+                </button>
+            }
+       </div>
     </div>
 </div>
 
+@section Scripts{
+    <script src="~/js/Sales/Sales.js"></script>
+}
