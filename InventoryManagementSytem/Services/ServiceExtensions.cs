@@ -4,6 +4,8 @@ using InventoryManagementSytem.Services.Product.Interface;
 using InventoryManagementSytem.Services.Product;
 using InventoryManagementSytem.Services.ReceivedProduct.Interface;
 using InventoryManagementSytem.Services.ReceivedProduct;
+using InventoryManagementSytem.Services.Stocks.Interface;
+using InventoryManagementSytem.Services.Stocks;
 
 namespace InventoryManagementSytem.Services
 {
@@ -29,6 +31,10 @@ namespace InventoryManagementSytem.Services
             {
                 client.BaseAddress = new Uri("https://localhost:7275/api/");
             });
+            services.AddHttpClient("StockService", client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:7275/api/");
+            });
         }
 
         private static void ConfigureDependencyInjection(this IServiceCollection services)
@@ -36,6 +42,7 @@ namespace InventoryManagementSytem.Services
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IHomeService, HomeService>();
             services.AddTransient<IReceivedProductService, ReceivedProductService>();
+            services.AddTransient<IStockService, StockService>();
         }
     }
 }

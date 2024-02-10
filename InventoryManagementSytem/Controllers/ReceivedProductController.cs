@@ -41,11 +41,6 @@ namespace InventoryManagementSytem.Controllers
                 EncodedBy = "Test Name"
             }).Result;
 
-            if(!result)
-            {
-                
-            }
-
             var receivedProducts = _receivedProduct.GetAll().Result;
             return PartialView("ReceivedProductTable",receivedProducts);
         }

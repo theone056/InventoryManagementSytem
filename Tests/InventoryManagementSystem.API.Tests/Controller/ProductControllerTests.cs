@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using Castle.Core.Logging;
 using InventoryManagementSystem.API.Controllers;
 using InventoryManagementSystem.Application.Interface.Repository;
 using InventoryManagementSystem.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Moq;
 using Newtonsoft.Json;
 using System;
@@ -18,13 +20,14 @@ namespace InventoryManagementSystem.API.Tests.Controller
     {
         private readonly Mock<IProductRepository> _mockProductRepo;
         private readonly Mock<IMapper> _mockMapper;
+        private readonly Mock<ILogger<ProductController>> _logger;
         private readonly ProductController _prod;
 
         public ProductControllerTests()
         {
             _mockProductRepo = new Mock<IProductRepository>();
             _mockMapper = new Mock<IMapper>(); 
-            _prod = new ProductController(_mockProductRepo.Object, _mockMapper.Object);
+            _prod = new ProductController(_mockProductRepo.Object, _mockMapper.Object, _logger.Object);
         }
 
         [Fact]

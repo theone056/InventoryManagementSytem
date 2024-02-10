@@ -12,15 +12,14 @@ namespace InventoryManagementSystem.Domain.Entities
     {
         [Key]
         public int Id { get; set; }
-        public Guid ProductCode { get; set; }
-        public string ProductName { get; set; }
-        public string Unit { get; set; }
         public double ReceivedQty { get; set; }
         public double SalesQty { get; set; }
         public double StockQty { get; set; }
-        public double SellingPrice { get; set; }
         public double TotalSales { get; set; }
         public DateTimeOffset DateCreated { get; set; }
         public DateTimeOffset? DateUpdated { get; set; }
+        [ForeignKey("ProductCode")]
+        public Guid ProductCode { get; set; }
+        public Product? Product { get; set; }
     }
 }

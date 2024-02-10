@@ -13,11 +13,14 @@ namespace InventoryManagementSystem.API.Controllers
     public class ReceivedProductController : ControllerBase
     {
         private readonly IReceivedProductRepository _receivedProductRepository;
+        private readonly IStockInventoryRepository _stockRepository;
         private readonly IMapper _mapper;
-        public ReceivedProductController(IReceivedProductRepository receivedProductRepository, IMapper mapper)
+        public ReceivedProductController(IReceivedProductRepository receivedProductRepository, IMapper mapper, IStockInventoryRepository stockInventory)
         {
             _receivedProductRepository = receivedProductRepository;
             _mapper = mapper;
+            _stockRepository = stockInventory;
+
         }
 
         [HttpGet("GetAll")]
@@ -42,13 +45,22 @@ namespace InventoryManagementSystem.API.Controllers
         }
 
         [HttpPost("Create")]
-        public IActionResult Create(ReceivedProductModel receivedProduct)
+        public async Task<IActionResult> Create(ReceivedProductModel receivedProduct)
         {
             if (ModelState.IsValid)
             {
                 var receivedProductModel = _mapper.Map<ReceivedProduct>(receivedProduct);
                 _receivedProductRepository.Create(receivedProductModel);
-                return Ok();
+                var result = await _stockRepository.UpdateStocksByReceivedQty(new UpdateReceivedQtyModel()
+                {
+                    ProductCode = receivedProductModel.ProductCode,
+                    ReceivedQty = receivedProductModel.Qty
+                });
+
+                if (result)
+                {
+                    return Ok();
+                }
             }
             return BadRequest();
         }

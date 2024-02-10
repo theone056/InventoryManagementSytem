@@ -1,6 +1,46 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@model List<StockModel>
 @{
 }
 <h1>Stocks</h1>
+
+<div class="container-fluid">
+    @if (Model.Any())
+    {
+        <div id="product-table-container">
+            <table id="product-table" class="table table-bordered table-responsive">
+                <thead class="table-primary">
+                    <tr>
+                        <th class="h4">Product Name</th>
+                        <th class="h4">Unit</th>
+                        <th class="h4">Received Qty</th>
+                        <th class="h4">Sales Qty</th>
+                        <th class="h4">Stock Qty</th>
+                        <th class="h4">Price</th>
+                        <th class="h4">TotalSales</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var product in Model)
+                    {
+                        <tr>
+                            <td class="h5">@product.ProductName</td>
+                            <td class="h5">@product.Unit</td>
+                            <td class="h5">@product.ReceivedQty</td>
+                            <td class="h5">@product.SalesQty</td>
+                            <td class="h5">@product.StockQty</td>
+                            <td class="h5">@product.SellingPrice</td>
+                            <td class="h5">@product.TotalSales</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <h5>No Data Found</h5>
+    }
+</div>

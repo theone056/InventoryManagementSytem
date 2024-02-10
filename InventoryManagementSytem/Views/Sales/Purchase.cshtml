@@ -51,14 +51,21 @@
             </div>
         </div>
         <div class="col-12 mt-5">
-            <div class="card mx-5 p-5">
+            <div class="card mx-5 px-5 pt-2 pb-4">
                 <div class="row">
-                    <div class="card col-4 p-5">
-
+                    <div class="col-12 d-flex justify-content-end">
+                        <h2 class="text-dark">Total: <span id="total-value">0</span></h2>
                     </div>
-                    <div class="card col-4 p-5">
+                </div>
+                <div class="row">
+                    <div class="col-4 p-5">
+                        <button class="btn btn-danger form-control"><i class="bi bi-pause"></i> Hold</button>
                     </div>
-                    <div class="card col-4 p-5">
+                    <div class="col-4 p-5">
+                        <button class="btn btn-primary form-control"><i class="bi bi-credit-card"></i> Card</button>
+                    </div>
+                    <div class="col-4 p-5">
+                        <button class="btn btn-success form-control"><i class="bi bi-cash"></i> Cash</button>
                     </div>
                 </div>
             </div>
@@ -74,7 +81,8 @@
        <div class="d-flex flex-wrap align-items-center">
            @foreach(var product in Model.Products)
             {
-                <button class="btn btn-light card col-4 p-5 text-center text-nowrap align-items-center" id="@product.Id" onclick="Sales.OnAddProduct('@product.Id')">
+                <button class="btn btn-light card col-4  text-center text-nowrap align-items-center" id="@product.Id" onclick="Sales.OnAddProduct('@product.Id')">
+                    <img src="/img/product.jpg" width="100" height="100"/>
                     @product.Val
                 </button>
             }

@@ -5,6 +5,16 @@
         var idsubTotal = "#subtotal-" + code;
         var qty = $(idqty).val();
         $(idsubTotal).text(qty * price);
+        Calculate_Total();
+    }
+
+    function Calculate_Total() {
+        var sum = 0;
+        $(".subtotal").each(function () {
+            sum += parseFloat($(this).text());
+        })
+
+        $("#total-value").text(sum.toLocaleString());
     }
 
     function OnClickRemove(code) {
@@ -12,6 +22,7 @@
         var product = $("#" + code);
         trash.remove();
         product.attr("disabled", false);
+        Calculate_Total();
     }
 
     function OnAddProduct(id) {
@@ -22,6 +33,8 @@
             data: { id: id },
             success: function (data) {
                 $("#purchase-table > tbody").append(data);
+
+                Calculate_Total();
             },
             error: function () {
 

@@ -15,11 +15,13 @@ namespace InventoryManagementSystem.Infrastructure.Repositories
     public class ProductRepository : BaseRepository<Product>, IProductRepository
     {
         private readonly IMSDbContext _context;
+        private readonly IStockInventoryRepository _stockInventoryRepository;
         private readonly ILogger<ProductRepository> _logger;
-        public ProductRepository(IMSDbContext context, ILogger<ProductRepository> logger) : base(context)
+        public ProductRepository(IMSDbContext context, ILogger<ProductRepository> logger, IStockInventoryRepository stockInventoryRepository) : base(context)
         {
             _context = context;
             _logger = logger;
+            _stockInventoryRepository = stockInventoryRepository;
         }
 
         public List<KeyValue> GetProductNames()
@@ -57,6 +59,7 @@ namespace InventoryManagementSystem.Infrastructure.Repositories
                 {
                     _context.Products.Remove(result);
                     await _context.SaveChangesAsync();
+                    await _stockInventoryRepository.DeleteById(result.Code);
                     return true;
                 }
             }
@@ -132,6 +135,17 @@ namespace InventoryManagementSystem.Infrastructure.Repositories
                 if (IsProductNameExist(product.ProductName, cancellationToken).Result == false && Get(product.Code, cancellationToken).Result == null)
                 {
                     Create(product);
+                    _stockInventoryRepository.Create(new StockInventory()
+                    {
+                        DateCreated = DateTime.Now,
+                        DateUpdated = DateTime.Now,
+                        ReceivedQty = 0,
+                        SalesQty = 0,
+                        StockQty = 0,
+                        TotalSales = 0,
+                        Product = product
+                    });
+
                     return true;
                 } 
                 else
