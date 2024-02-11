@@ -2,6 +2,7 @@
 using InventoryManagementSystem.API.Filters;
 using InventoryManagementSystem.Application.Interface.Repository;
 using InventoryManagementSystem.Application.Models;
+using InventoryManagementSystem.Application.Services.Interface;
 using InventoryManagementSystem.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,14 +14,13 @@ namespace InventoryManagementSystem.API.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private readonly IProductRepository _productRepository;
-        private readonly IMapper _mapper;
+        private readonly IProductService _productService;
         private readonly ILogger<ProductController> _logger;
-        public ProductController(IProductRepository productRepository,
+        public ProductController(IProductService productService,
                                  IMapper mapper,
                                  ILogger<ProductController> logger)
         {
-            _productRepository = productRepository;
+            _productService = productService;
             _mapper = mapper;
             _logger = logger;
 
@@ -32,7 +32,7 @@ namespace InventoryManagementSystem.API.Controllers
         public async Task<IActionResult> GetAll(CancellationToken ct)
         {
             _logger.LogInformation("GetAll");
-            return Ok(await _productRepository.GetAll(ct));
+            return Ok(await _productService.GetAll(ct));
         }
 
         [HttpGet("GetCount")]
@@ -40,7 +40,7 @@ namespace InventoryManagementSystem.API.Controllers
         public IActionResult GetCount(CancellationToken ct)
         {
             _logger.LogInformation("GetCount");
-            return Ok(_productRepository.GetCount());
+            return Ok(_productService.GetCount());
         }
 
         [HttpGet("GetProductNames")]
@@ -48,7 +48,7 @@ namespace InventoryManagementSystem.API.Controllers
         public IActionResult GetProductNames(CancellationToken ct)
         {
             _logger.LogInformation("GetProductNames");
-            return Ok(_productRepository.GetProductNames());
+            return Ok(_productService.GetProductNames());
         }
 
         [HttpGet("Get")]
@@ -59,7 +59,7 @@ namespace InventoryManagementSystem.API.Controllers
         public async Task<IActionResult> GetProduct(Guid guid,CancellationToken ct)
         {
             _logger.LogInformation("GetProduct");
-            var productresult = await _productRepository.Get(guid,ct);
+            var productresult = await _productService.Get(guid,ct);
             if(productresult != null)
             {
                 return Ok(productresult);
@@ -77,10 +77,9 @@ namespace InventoryManagementSystem.API.Controllers
         {
             if(ModelState.IsValid)
             {
-                var productModel = _mapper.Map<Product>(product);
-                if(_productRepository.IsProductNameExist(product.ProductName, ct).Result == false)
+                if(_productService.IsProductNameExist(product.ProductName, ct).Result == false)
                 {
-                    _productRepository.Create(productModel);
+                    _productService.Create(product);
                     return Ok();
                 }
             }
@@ -96,8 +95,7 @@ namespace InventoryManagementSystem.API.Controllers
         {
             if (ModelState.IsValid)
             {
-                var productModel = _mapper.Map<Product>(product);
-                var result = _productRepository.Upsert(productModel,ct);
+                var result = _productService.Upsert(product, ct);
                 if(result)
                 {
                     return Ok();
@@ -120,11 +118,10 @@ namespace InventoryManagementSystem.API.Controllers
         {
             if (ModelState.IsValid)
             {
-                var productModel = _mapper.Map<Product>(product);
-                var productResult = _productRepository.Get(productModel.Code, ct).Result;
+                var productResult = _productService.Get(product.Code, ct).Result;
                 if (productResult != null)
                 {
-                    _productRepository.Update(productModel);
+                    _productService.Update(product);
                     return Ok();
                 }
                 else
@@ -143,7 +140,7 @@ namespace InventoryManagementSystem.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Delete(string productName, CancellationToken ct)
         {
-            await _productRepository.Delete(productName, ct);
+            await _productService.Delete(productName, ct);
             return Ok();
         }
     }

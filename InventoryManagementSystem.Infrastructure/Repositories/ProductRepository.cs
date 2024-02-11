@@ -15,13 +15,11 @@ namespace InventoryManagementSystem.Infrastructure.Repositories
     public class ProductRepository : BaseRepository<Product>, IProductRepository
     {
         private readonly IMSDbContext _context;
-        private readonly IStockInventoryRepository _stockInventoryRepository;
         private readonly ILogger<ProductRepository> _logger;
-        public ProductRepository(IMSDbContext context, ILogger<ProductRepository> logger, IStockInventoryRepository stockInventoryRepository) : base(context)
+        public ProductRepository(IMSDbContext context, ILogger<ProductRepository> logger) : base(context)
         {
             _context = context;
             _logger = logger;
-            _stockInventoryRepository = stockInventoryRepository;
         }
 
         public List<KeyValue> GetProductNames()
@@ -57,9 +55,10 @@ namespace InventoryManagementSystem.Infrastructure.Repositories
                 var result = await _context.Products.FirstOrDefaultAsync(x => x.ProductName == ProductName, cancellationToken);
                 if (result != null)
                 {
+                    var Stockresult = await _context.Stocks.FirstOrDefaultAsync(x => x.ProductCode == result.Code);
                     _context.Products.Remove(result);
+                    _context.Stocks.Remove(Stockresult);
                     await _context.SaveChangesAsync();
-                    await _stockInventoryRepository.DeleteById(result.Code);
                     return true;
                 }
             }
@@ -135,7 +134,7 @@ namespace InventoryManagementSystem.Infrastructure.Repositories
                 if (IsProductNameExist(product.ProductName, cancellationToken).Result == false && Get(product.Code, cancellationToken).Result == null)
                 {
                     Create(product);
-                    _stockInventoryRepository.Create(new StockInventory()
+                    _context.Stocks.Add(new StockInventory()
                     {
                         DateCreated = DateTime.Now,
                         DateUpdated = DateTime.Now,

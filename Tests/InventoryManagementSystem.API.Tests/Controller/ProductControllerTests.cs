@@ -2,6 +2,7 @@
 using Castle.Core.Logging;
 using InventoryManagementSystem.API.Controllers;
 using InventoryManagementSystem.Application.Interface.Repository;
+using InventoryManagementSystem.Application.Services.Interface;
 using InventoryManagementSystem.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -19,6 +20,7 @@ namespace InventoryManagementSystem.API.Tests.Controller
     public class ProductControllerTests
     {
         private readonly Mock<IProductRepository> _mockProductRepo;
+        private readonly Mock<IProductService> _mockProductService;
         private readonly Mock<IMapper> _mockMapper;
         private readonly Mock<ILogger<ProductController>> _logger;
         private readonly ProductController _prod;
@@ -27,7 +29,8 @@ namespace InventoryManagementSystem.API.Tests.Controller
         {
             _mockProductRepo = new Mock<IProductRepository>();
             _mockMapper = new Mock<IMapper>(); 
-            _prod = new ProductController(_mockProductRepo.Object, _mockMapper.Object, _logger.Object);
+            _mockProductService = new Mock<IProductService>();
+            _prod = new ProductController(_mockProductRepo.Object, _mockProductService.Object, _mockMapper.Object, _logger.Object);
         }
 
         [Fact]

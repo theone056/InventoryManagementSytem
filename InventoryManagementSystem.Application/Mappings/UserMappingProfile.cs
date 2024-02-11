@@ -9,10 +9,13 @@ namespace InventoryManagementSystem.Application.Mappings
         public UserMappingProfile()
         {
             CreateMap<UserRegistrationModel, User>();
-            CreateMap<ProductModel, Product>();
+            CreateMap<ProductModel, Product>().ReverseMap();
             CreateMap<SalesModel, Sale>();
             CreateMap<ReceivedProductModel, ReceivedProduct>();
             CreateMap<StockInventoryModel, StockInventory>();
+            CreateMap<KeyValueModel, KeyValue>();
+            CreateMap<ItemCountModel, ItemCount>().ReverseMap();
+            CreateMap<KeyValueModel, KeyValue>().ReverseMap();
         }
     }
 }

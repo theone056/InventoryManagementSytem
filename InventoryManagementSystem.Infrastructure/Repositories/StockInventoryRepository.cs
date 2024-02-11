@@ -21,7 +21,7 @@ namespace InventoryManagementSystem.Infrastructure.Repositories
 
         public async Task<bool> DeleteById(Guid id)
         {
-            var result = await _context.Stocks.FindAsync(id);
+            var result = await _context.Stocks.FirstOrDefaultAsync(x=>x.ProductCode == id);
             if(result != null)
             {
                 _context.Remove(result);

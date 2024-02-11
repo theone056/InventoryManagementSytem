@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using InventoryManagementSystem.Application.Interface.Repository;
 using InventoryManagementSystem.Application.Models;
+using InventoryManagementSystem.Application.Services.Interface;
 using InventoryManagementSystem.Domain.Entities;
 using InventoryManagementSystem.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Http;
@@ -12,13 +13,11 @@ namespace InventoryManagementSystem.API.Controllers
     [ApiController]
     public class ReceivedProductController : ControllerBase
     {
-        private readonly IReceivedProductRepository _receivedProductRepository;
+        private readonly IReceivedProductService _recivedProductService;
         private readonly IStockInventoryRepository _stockRepository;
-        private readonly IMapper _mapper;
-        public ReceivedProductController(IReceivedProductRepository receivedProductRepository, IMapper mapper, IStockInventoryRepository stockInventory)
+        public ReceivedProductController(IReceivedProductService receivedProductService, IStockInventoryRepository stockInventory)
         {
-            _receivedProductRepository = receivedProductRepository;
-            _mapper = mapper;
+            _recivedProductService = receivedProductService;
             _stockRepository = stockInventory;
 
         }
@@ -26,14 +25,14 @@ namespace InventoryManagementSystem.API.Controllers
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll(CancellationToken ct)
         {
-            var result = await _receivedProductRepository.GetAll(ct);
+            var result = await _recivedProductService.GetAll(ct);
             return Ok(result);
         }
 
         [HttpGet("Get")]
         public async Task<IActionResult> GetReceivedProduct(Guid guid, CancellationToken ct)
         {
-            var receivedProductresult = await _receivedProductRepository.Get(guid, ct);
+            var receivedProductresult = await _recivedProductService.Get(guid, ct);
             if (receivedProductresult != null)
             {
                 return Ok(receivedProductresult);
@@ -49,12 +48,11 @@ namespace InventoryManagementSystem.API.Controllers
         {
             if (ModelState.IsValid)
             {
-                var receivedProductModel = _mapper.Map<ReceivedProduct>(receivedProduct);
-                _receivedProductRepository.Create(receivedProductModel);
+                _recivedProductService.Create(receivedProduct);
                 var result = await _stockRepository.UpdateStocksByReceivedQty(new UpdateReceivedQtyModel()
                 {
-                    ProductCode = receivedProductModel.ProductCode,
-                    ReceivedQty = receivedProductModel.Qty
+                    ProductCode = receivedProduct.ProductCode,
+                    ReceivedQty = receivedProduct.Qty
                 });
 
                 if (result)
@@ -70,8 +68,7 @@ namespace InventoryManagementSystem.API.Controllers
         {
             if (ModelState.IsValid)
             {
-                var receivedProductModel = _mapper.Map<ReceivedProduct>(receivedProduct);
-                _receivedProductRepository.Upsert(receivedProductModel, ct);
+                _recivedProductService.Upsert(receivedProduct, ct);
                 return Ok();
             }
             return BadRequest();
@@ -82,11 +79,10 @@ namespace InventoryManagementSystem.API.Controllers
         {
             if (ModelState.IsValid)
             {
-                var receivedProductModel = _mapper.Map<ReceivedProduct>(receivedProduct);
-                var receivedProductResult = _receivedProductRepository.Get(receivedProductModel.Product.Code, ct).Result;
+                var receivedProductResult = _recivedProductService.Get(receivedProduct.ProductCode, ct).Result;
                 if (receivedProductResult != null)
                 {
-                    _receivedProductRepository.Update(receivedProductResult);
+                    _recivedProductService.Update(receivedProductResult);
                     return Ok();
                 }
                 else
@@ -104,11 +100,10 @@ namespace InventoryManagementSystem.API.Controllers
         {
             if (ModelState.IsValid)
             {
-                var receivedProductModel = _mapper.Map<ReceivedProduct>(receivedProduct);
-                var receivedProductResult = _receivedProductRepository.Get(receivedProductModel.Product.Code, ct).Result;
+                var receivedProductResult = _recivedProductService.Get(receivedProduct.ProductCode, ct).Result;
                 if (receivedProductResult != null)
                 {
-                    _receivedProductRepository.Delete(receivedProductResult);
+                    _recivedProductService.Delete(receivedProductResult);
                     return Ok();
                 }
                 else
