@@ -1,4 +1,5 @@
 ﻿using InventoryManagementSystem.Application.Models;
+using InventoryManagementSystem.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,7 @@ namespace InventoryManagementSystem.Application.Services.Interface
 {
     public interface ISalesService:IBaseService<SalesModel>
     {
+        Task<SalesModel> Get(Guid code, CancellationToken cancellationToken);
+        Task<List<SalesModel>> GetAll(CancellationToken cancellationToken);
     }
 }

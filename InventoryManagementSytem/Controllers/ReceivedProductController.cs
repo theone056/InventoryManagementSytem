@@ -12,10 +12,13 @@ namespace InventoryManagementSytem.Controllers
     {
         private readonly IReceivedProductService _receivedProduct;
         private readonly IProductService _productService;
-        public ReceivedProductController(IReceivedProductService receivedProduct, IProductService productService)
+        private readonly IGetProductServices _getProductServices;
+        public ReceivedProductController(IReceivedProductService receivedProduct, IProductService productService, IGetProductServices getProductServices)
         {
             _receivedProduct = receivedProduct;
             _productService = productService;
+            _getProductServices = getProductServices;
+
         }
 
         [Route("ReceivedProduct")]
@@ -25,7 +28,7 @@ namespace InventoryManagementSytem.Controllers
             return View(new ReceivedProductViewModel()
             {
                 ReceivedProduct = result,
-                Products = _productService.GetAllNames().Result
+                Products = _getProductServices.GetAllNames().Result
             });
         }
 

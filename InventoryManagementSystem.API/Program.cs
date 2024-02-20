@@ -1,3 +1,4 @@
+using InventoryManagementSystem.API.Filters.ExceptionFilters;
 using InventoryManagementSystem.Application;
 using InventoryManagementSystem.Infrastructure;
 using InventoryManagementSystem.Infrastructure.Context;
@@ -25,7 +26,10 @@ public class Program
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
-        builder.Services.AddMvc().AddNewtonsoftJson(
+        builder.Services.AddMvc(option =>
+        {
+            option.Filters.Add(new HandleExceptionFilter());
+        }).AddNewtonsoftJson(
             options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
 
@@ -46,7 +50,6 @@ public class Program
         app.UseHttpsRedirection();
         app.UseAuthentication();
         app.UseAuthorization();
-
         app.MapControllers();
 
         app.Run();

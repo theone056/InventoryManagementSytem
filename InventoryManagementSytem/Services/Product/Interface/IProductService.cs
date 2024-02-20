@@ -5,9 +5,6 @@ namespace InventoryManagementSytem.Services.Product.Interface
 {
     public interface IProductService
     {
-        Task<List<ProductModel>> GetAll();
-
-        Task<ProductModel> GetProduct(Guid guid);
 
         Task<bool> Create(ProductModel product);
 
@@ -16,6 +13,5 @@ namespace InventoryManagementSytem.Services.Product.Interface
 
         Task<bool> Delete(string productName);
 
-        Task<List<ProductNamesModel>> GetAllNames();
     }
 }

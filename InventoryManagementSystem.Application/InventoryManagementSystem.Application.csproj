@@ -8,6 +8,9 @@
 
   <ItemGroup>
     <Folder Include="Common\" />
+    <Folder Include="Services\ProductServ\Interface\" />
+    <Folder Include="Services\StocksService\" />
+    <Folder Include="Services\ReceivedProductService\" />
   </ItemGroup>
 
   <ItemGroup>

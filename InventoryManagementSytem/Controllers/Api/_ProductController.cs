@@ -7,9 +7,9 @@ namespace InventoryManagementSytem.Controllers.Api
     [Route("api/product")]
     public class _ProductController : Controller
     {
-        private readonly IProductService _productService;
+        private readonly IGetProductServices _productService;
 
-        public _ProductController(IProductService productService)
+        public _ProductController(IGetProductServices productService)
         {
             _productService = productService;
         }

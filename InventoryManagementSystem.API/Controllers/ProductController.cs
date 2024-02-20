@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using InventoryManagementSystem.API.Filters;
+using InventoryManagementSystem.API.Filters.ExceptionFilters;
 using InventoryManagementSystem.Application.Interface.Repository;
 using InventoryManagementSystem.Application.Models;
 using InventoryManagementSystem.Application.Services.Interface;
@@ -17,11 +18,9 @@ namespace InventoryManagementSystem.API.Controllers
         private readonly IProductService _productService;
         private readonly ILogger<ProductController> _logger;
         public ProductController(IProductService productService,
-                                 IMapper mapper,
                                  ILogger<ProductController> logger)
         {
             _productService = productService;
-            _mapper = mapper;
             _logger = logger;
 
             _logger.LogInformation("Product Controller Called");

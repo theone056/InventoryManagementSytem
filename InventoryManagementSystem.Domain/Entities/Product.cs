@@ -22,6 +22,7 @@ namespace InventoryManagementSystem.Domain.Entities
         public DateTimeOffset DateCreated { get; set; }
         public DateTimeOffset? DateUpdated { get; set; }
         public ICollection<ReceivedProduct>? ReceivedProduct { get; set; }
+        public ICollection<Sale> Sales { get; set; }
         public StockInventory Stocks { get; set; }
     }
 }

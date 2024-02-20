@@ -18,6 +18,21 @@ namespace InventoryManagementSystem.Infrastructure.Repositories
             _context = context;
         }
 
+        public async Task AddSales(List<Sale> sales)
+        {
+            await _context.Sales.AddRangeAsync(sales);
+
+            foreach (var sale in sales)
+            {
+                var product = _context.Stocks.FirstOrDefault(x => x.ProductCode == sale.ProductCode);
+                product.SalesQty += sale.Qty;
+                product.StockQty -= sale.Qty;
+                product.TotalSales += sale.TotalSales;
+            }
+
+            await _context.SaveChangesAsync();
+        }
+
         public Task<Sale> Get(Guid code, CancellationToken cancellationToken)
         {
             return _context.Sales.FirstOrDefaultAsync(x => x.ProductCode == code, cancellationToken);

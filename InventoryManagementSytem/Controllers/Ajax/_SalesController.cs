@@ -7,8 +7,8 @@ namespace InventoryManagementSytem.Controllers.Ajax
     [Route("ajax/Sales/")]
     public class _SalesController : Controller
     {
-        private readonly IProductService _productService;
-        public _SalesController(IProductService productService)
+        private readonly IGetProductServices _productService;
+        public _SalesController(IGetProductServices productService)
         {
             _productService = productService;
         }
@@ -20,5 +20,6 @@ namespace InventoryManagementSytem.Controllers.Ajax
             var result = await _productService.GetProduct(id);
             return PartialView("~/Views/Sales/_TableRow.cshtml", result);
         }
+
     }
 }

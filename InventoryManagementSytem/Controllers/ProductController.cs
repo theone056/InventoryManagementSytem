@@ -9,15 +9,18 @@ namespace InventoryManagementSytem.Controllers
     public class ProductController : Controller
     {
         private readonly IProductService _productService;
-        public ProductController(IProductService productService)
+        private readonly IGetProductServices _getProductServices;
+        public ProductController(IProductService productService, IGetProductServices getProductServices)
         {
             _productService = productService;
+            _getProductServices = getProductServices;
+
         }
 
         [Route("Products")]
         public IActionResult Index()
         {
-            var result = _productService.GetAll().Result;
+            var result = _getProductServices.GetAll().Result;
             return View(new ProductIndexViewModel()
             {
                 ProductModel = result,
@@ -44,7 +47,7 @@ namespace InventoryManagementSytem.Controllers
             }       
 
             TempData["Error"] = Error;
-            var products = _productService.GetAll().Result;
+            var products = _getProductServices.GetAll().Result;
             return PartialView("ProductTable", products);
         }
 
@@ -56,7 +59,7 @@ namespace InventoryManagementSytem.Controllers
 
             if (result)
             {
-                var products = _productService.GetAll().Result;
+                var products = _getProductServices.GetAll().Result;
                 return PartialView("ProductTable", products);
             }
             else

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using InventoryManagementSystem.Application.Interface.Repository;
 using InventoryManagementSystem.Application.Models;
+using InventoryManagementSystem.Application.Services.SalesService.Interface;
 using InventoryManagementSystem.Domain.Entities;
 using InventoryManagementSystem.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Http;
@@ -13,10 +14,12 @@ namespace InventoryManagementSystem.API.Controllers
     public class SalesController : ControllerBase
     {
         private readonly ISalesRepository _salesRepository;
+        private readonly ICreateSalesService _createSalesService;
         private readonly IMapper _mapper;
-        public SalesController(ISalesRepository salesRepository, IMapper mapper)
+        public SalesController(ISalesRepository salesRepository, ICreateSalesService createSalesService, IMapper mapper)
         {
             _salesRepository = salesRepository;
+            _createSalesService = createSalesService;
             _mapper = mapper;
         }
 
@@ -48,6 +51,17 @@ namespace InventoryManagementSystem.API.Controllers
             {
                 var salesModel = _mapper.Map<Sale>(sale);
                 _salesRepository.Create(salesModel);
+                return Ok();
+            }
+            return BadRequest();
+        }
+
+        [HttpPost("AddSales")]
+        public async Task<IActionResult> AddSales(List<SalesModel> sales)
+        {
+            if (ModelState.IsValid)
+            {
+                await _createSalesService.AddSales(sales);
                 return Ok();
             }
             return BadRequest();

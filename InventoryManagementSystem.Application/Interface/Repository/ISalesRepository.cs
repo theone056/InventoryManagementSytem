@@ -11,5 +11,7 @@ namespace InventoryManagementSystem.Application.Interface.Repository
     {
         Task<Sale> Get(Guid code, CancellationToken cancellationToken);
         Task<List<Sale>> GetAll(CancellationToken cancellationToken);
+
+        Task AddSales(List<Sale> sale);
     }
 }

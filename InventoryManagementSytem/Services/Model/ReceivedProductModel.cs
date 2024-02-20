@@ -27,7 +27,11 @@ namespace InventoryManagementSytem.Services.Model
         public string EncodedBy { get; set; }
         public DateTimeOffset DateCreated { get; set; }
         public DateTimeOffset? DateUpdated { get; set; } = DateTimeOffset.Now;
-        [JsonPropertyName("product")]
-        public ProductModel Product { get; set; }
+        [JsonPropertyName("productName")]
+        public string ProductName { get; set; }
+        [JsonPropertyName("unit")]
+        public string Unit { get; set; }
+        [JsonPropertyName("price")]
+        public double Price { get; set; }
     }
 }

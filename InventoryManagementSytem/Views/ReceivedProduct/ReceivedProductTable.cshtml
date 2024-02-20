@@ -11,9 +11,9 @@
         <tr>
             <th>@Html.DisplayNameFor(x => Model.FirstOrDefault().DateReceived)</th>
             <th>@Html.DisplayNameFor(x => Model.FirstOrDefault().ProductCode)</th>
-            <th>@Html.DisplayNameFor(x => Model.FirstOrDefault().Product.ProductName)</th>
-            <th>@Html.DisplayNameFor(x => Model.FirstOrDefault().Product.Unit)</th>
-            <th>@Html.DisplayNameFor(x => Model.FirstOrDefault().Product.Price)</th>
+            <th>@Html.DisplayNameFor(x => Model.FirstOrDefault().ProductName)</th>
+            <th>@Html.DisplayNameFor(x => Model.FirstOrDefault().Unit)</th>
+            <th>@Html.DisplayNameFor(x => Model.FirstOrDefault().Price)</th>
             <th>@Html.DisplayNameFor(x => Model.FirstOrDefault().Qty)</th>
         </tr>
     </thead>
@@ -23,9 +23,9 @@
             <tr>
                 <td>@product.DateReceived</td>
                 <td>@product.ProductCode</td>
-                <td>@product.Product.ProductName</td>
-                <td>@product.Product.Unit</td>
-                <td>@product.Product.Price</td>
+                <td>@product.ProductName</td>
+                <td>@product.Unit</td>
+                <td>@product.Price</td>
                 <td>@product.Qty</td>
             </tr>
         }

@@ -2,6 +2,7 @@
 using Castle.Core.Logging;
 using InventoryManagementSystem.API.Controllers;
 using InventoryManagementSystem.Application.Interface.Repository;
+using InventoryManagementSystem.Application.Models;
 using InventoryManagementSystem.Application.Services.Interface;
 using InventoryManagementSystem.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -19,41 +20,38 @@ namespace InventoryManagementSystem.API.Tests.Controller
 {
     public class ProductControllerTests
     {
-        private readonly Mock<IProductRepository> _mockProductRepo;
         private readonly Mock<IProductService> _mockProductService;
-        private readonly Mock<IMapper> _mockMapper;
         private readonly Mock<ILogger<ProductController>> _logger;
         private readonly ProductController _prod;
 
         public ProductControllerTests()
         {
-            _mockProductRepo = new Mock<IProductRepository>();
-            _mockMapper = new Mock<IMapper>(); 
             _mockProductService = new Mock<IProductService>();
-            _prod = new ProductController(_mockProductRepo.Object, _mockProductService.Object, _mockMapper.Object, _logger.Object);
+            _logger = new Mock<ILogger<ProductController>>();
+            _prod = new ProductController(_mockProductService.Object, _logger.Object);
         }
 
         [Fact]
         public async Task GetAll_Method_Returns_Ok()
         {
-            _mockProductRepo.Setup(x => x.GetAll(It.IsAny<CancellationToken>())).ReturnsAsync(new List<Product>() { new Product() { ProductName = "Test"} });
+            _mockProductService.Setup(x => x.GetAll(It.IsAny<CancellationToken>())).ReturnsAsync(new List<ProductModel>() { new ProductModel() { ProductName = "Test"} });
 
             var result = await _prod.GetAll(It.IsAny<CancellationToken>()) as OkObjectResult;
 
             Assert.NotNull(result.Value);
-            Assert.IsType<List<Product>>(result.Value);
+            Assert.IsType<List<ProductModel>>(result.Value);
             Assert.Equal((int)HttpStatusCode.OK, result.StatusCode);
         }
 
         [Fact]
         public void GetCount_Method_Returns_Ok()
         {
-            _mockProductRepo.Setup(x=>x.GetCount()).Returns(new ItemCount() { ProductCount = 1 });
+            _mockProductService.Setup(x=>x.GetCount()).Returns(new ItemCountModel() { ProductCount = 1 });
 
             var result = _prod.GetCount(It.IsAny<CancellationToken>()) as OkObjectResult;
 
             Assert.NotNull(result.Value);
-            Assert.IsType<ItemCount>(result.Value);
+            Assert.IsType<ItemCountModel>(result.Value);
             Assert.Equal((int)HttpStatusCode.OK, result.StatusCode);
         }
     }

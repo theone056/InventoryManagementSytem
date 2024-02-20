@@ -6,6 +6,10 @@ using InventoryManagementSytem.Services.ReceivedProduct.Interface;
 using InventoryManagementSytem.Services.ReceivedProduct;
 using InventoryManagementSytem.Services.Stocks.Interface;
 using InventoryManagementSytem.Services.Stocks;
+using InventoryManagementSytem.Services.Sales.Interface;
+using InventoryManagementSytem.Services.Sales;
+using AutoMapper;
+using InventoryManagementSytem.Mappings;
 
 namespace InventoryManagementSytem.Services
 {
@@ -31,7 +35,11 @@ namespace InventoryManagementSytem.Services
             {
                 client.BaseAddress = new Uri("https://localhost:7275/api/");
             });
-            services.AddHttpClient("StockService", client =>
+            services.AddHttpClient("StockService", client =>               
+            {
+                client.BaseAddress = new Uri("https://localhost:7275/api/");
+            });
+            services.AddHttpClient("SaleService", client =>
             {
                 client.BaseAddress = new Uri("https://localhost:7275/api/");
             });
@@ -39,10 +47,18 @@ namespace InventoryManagementSytem.Services
 
         private static void ConfigureDependencyInjection(this IServiceCollection services)
         {
+            var mappingConfig = new MapperConfiguration(map =>
+            {
+                map.AddProfile<UserMappingProfile>();
+            });
+            services.AddSingleton(mappingConfig.CreateMapper());
+
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IHomeService, HomeService>();
             services.AddTransient<IReceivedProductService, ReceivedProductService>();
             services.AddTransient<IStockService, StockService>();
+            services.AddTransient<IGetProductServices, GetProductServices>();
+            services.AddTransient<ICreateSaleService, CreateSaleService>();
         }
     }
 }
