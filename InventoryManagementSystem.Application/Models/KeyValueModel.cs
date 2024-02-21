@@ -10,5 +10,6 @@ namespace InventoryManagementSystem.Application.Models
     {
         public Guid Id { get; set; }
         public string Val { get; set; }
+        public double StockQty { get; set; }
     }
 }

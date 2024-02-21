@@ -8,7 +8,7 @@ namespace InventoryManagementSytem.Models
 {
     public class ReceivedProductViewModel
     {
-        public List<ReceivedProductModel> ReceivedProduct { get; set; }
+        public List<GetAllReceivedProductResponseViewModel> ReceivedProduct { get; set; }
         public List<ProductNamesModel> Products { get; set; }
 
         [Required]

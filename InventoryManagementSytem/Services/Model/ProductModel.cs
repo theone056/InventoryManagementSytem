@@ -28,9 +28,8 @@ namespace InventoryManagementSytem.Services.Models
         [DisplayName("Remarks")]
         [JsonPropertyName("remarks")]
         public string? Remarks { get; set; }
-
-        public DateTimeOffset DateCreated { get; set; } = DateTimeOffset.Now;
-        public DateTimeOffset? DateUpdated { get; set; } = DateTimeOffset.Now;
-        public ICollection<ReceivedProductModel>? ReceivedProduct { get; set; }
+        [DisplayName("Stock")]
+        [JsonPropertyName("maxStock")]
+        public double MaxStock { get; set; }
     }
 }

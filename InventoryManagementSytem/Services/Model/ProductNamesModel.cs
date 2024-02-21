@@ -8,6 +8,7 @@ namespace InventoryManagementSytem.Services.Model
         public Guid Id { get; set; }
         [JsonPropertyName("val")]
         public string Val { get; set; }
-        public int MaxStock { get; set; }
+        [JsonPropertyName("stockQty")]
+        public double StockQty { get; set; }
     }
 }

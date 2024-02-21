@@ -10,7 +10,7 @@
 <tr id="row-@Model.Code">
     <td>@Model.Code</td>
     <td>@Model.ProductName</td>
-    <td><input name="qty-@Model.Code" id="qty-@Model.Code" type="number" onchange="Sales.OnChangeQty('@Model.Code','@Model.Price')" value="1" min="1"/></td>
+    <td><input name="qty-@Model.Code" id="qty-@Model.Code" type="number" onchange="Sales.OnChangeQty('@Model.Code','@Model.Price')" value="1" min="1" max="@Model.MaxStock"/></td>
     <td>@Model.Price</td>
     <td class="subtotal" id="subtotal-@Model.Code">@Model.Price</td>
     <td class="text-center">

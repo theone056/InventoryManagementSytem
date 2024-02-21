@@ -5,6 +5,7 @@ using InventoryManagementSystem.Application.Interface.Repository;
 using InventoryManagementSystem.Application.Models;
 using InventoryManagementSystem.Application.Services.Interface;
 using InventoryManagementSystem.Domain.Entities;
+using InventoryManagementSystem.Application.Services.ProductServices.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -15,23 +16,32 @@ namespace InventoryManagementSystem.API.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private readonly IProductService _productService;
+        private readonly IGetProductService _GetProductService;
+        private readonly ICreateProductService _createProductService;
+        private readonly IUpdateProductService _updateProductService;
+        private readonly IDeleteProductService _deleteProductService;
         private readonly ILogger<ProductController> _logger;
-        public ProductController(IProductService productService,
+        public ProductController(ICreateProductService createProductService,
+                                 IGetProductService getProductService,
+                                 IUpdateProductService updateProductService,
+                                 IDeleteProductService deleteProductService,
                                  ILogger<ProductController> logger)
         {
-            _productService = productService;
+            _createProductService = createProductService;
+            _GetProductService = getProductService;
+            _updateProductService = updateProductService;
+            _deleteProductService = deleteProductService;
             _logger = logger;
 
             _logger.LogInformation("Product Controller Called");
         }
 
         [HttpGet("GetAll")]
-        [ProducesResponseType(typeof(List<Product>),StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(List<GetAllProductResponse>),StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAll(CancellationToken ct)
         {
             _logger.LogInformation("GetAll");
-            return Ok(await _productService.GetAll(ct));
+            return Ok(await _GetProductService.GetAll(ct));
         }
 
         [HttpGet("GetCount")]
@@ -39,7 +49,7 @@ namespace InventoryManagementSystem.API.Controllers
         public IActionResult GetCount(CancellationToken ct)
         {
             _logger.LogInformation("GetCount");
-            return Ok(_productService.GetCount());
+            return Ok(_GetProductService.GetCount());
         }
 
         [HttpGet("GetProductNames")]
@@ -47,18 +57,26 @@ namespace InventoryManagementSystem.API.Controllers
         public IActionResult GetProductNames(CancellationToken ct)
         {
             _logger.LogInformation("GetProductNames");
-            return Ok(_productService.GetProductNames());
+            return Ok(_GetProductService.GetProductNames());
+        }
+
+        [HttpGet("GetAvailableProducts")]
+        [ProducesResponseType(typeof(List<KeyValue>), StatusCodes.Status200OK)]
+        public IActionResult GetAvailableProducts(CancellationToken ct)
+        {
+            _logger.LogInformation("GetAvailableProducts");
+            return Ok(_GetProductService.GetAvailableProducts());
         }
 
         [HttpGet("Get")]
-        [ProducesResponseType(typeof(Product),StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GetProductResponse),StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [TypeFilter(typeof(ParameterValidation))]
         public async Task<IActionResult> GetProduct(Guid guid,CancellationToken ct)
         {
             _logger.LogInformation("GetProduct");
-            var productresult = await _productService.Get(guid,ct);
+            var productresult = await _GetProductService.Get(guid,ct);
             if(productresult != null)
             {
                 return Ok(productresult);
@@ -70,22 +88,6 @@ namespace InventoryManagementSystem.API.Controllers
             }
         }
 
-        [HttpPost("Create")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public IActionResult Create(ProductModel product, CancellationToken ct)
-        {
-            if(ModelState.IsValid)
-            {
-                if(_productService.IsProductNameExist(product.ProductName, ct).Result == false)
-                {
-                    _productService.Create(product);
-                    return Ok();
-                }
-            }
-            _logger.LogError("Invalid Data!");
-            return BadRequest();
-        }
-
         [HttpPost("Upsert")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -94,7 +96,7 @@ namespace InventoryManagementSystem.API.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = _productService.Upsert(product, ct);
+                var result = _updateProductService.Upsert(product, ct);
                 if(result)
                 {
                     return Ok();
@@ -109,37 +111,12 @@ namespace InventoryManagementSystem.API.Controllers
             return BadRequest();
         }
 
-        [HttpPut("Update")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult Update(ProductModel product, CancellationToken ct)
-        {
-            if (ModelState.IsValid)
-            {
-                var productResult = _productService.Get(product.Code, ct).Result;
-                if (productResult != null)
-                {
-                    _productService.Update(product);
-                    return Ok();
-                }
-                else
-                {
-                    _logger.LogError("Failed to update!");
-                    return NotFound();
-                }
-               
-            }
-            _logger.LogError("Failed to create Product!");
-            return BadRequest();
-        }
-
 
         [HttpDelete("Delete")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Delete(string productName, CancellationToken ct)
         {
-            await _productService.Delete(productName, ct);
+            await _deleteProductService.Delete(productName, ct);
             return Ok();
         }
     }

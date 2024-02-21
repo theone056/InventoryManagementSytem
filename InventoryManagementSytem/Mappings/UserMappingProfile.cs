@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using InventoryManagementSytem.Models;
 using InventoryManagementSytem.Services.Model;
+using InventoryManagementSytem.Services.Models;
 
 namespace InventoryManagementSytem.Mappings
 {

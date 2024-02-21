@@ -10,5 +10,6 @@ namespace InventoryManagementSystem.Domain.Entities
     {
         public Guid Id { get; set; }
         public string Val { get; set; }
+        public double StockQty { get; set; }
     }
 }

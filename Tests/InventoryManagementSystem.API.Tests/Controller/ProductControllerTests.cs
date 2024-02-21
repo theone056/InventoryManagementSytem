@@ -20,13 +20,11 @@ namespace InventoryManagementSystem.API.Tests.Controller
 {
     public class ProductControllerTests
     {
-        private readonly Mock<IProductService> _mockProductService;
         private readonly Mock<ILogger<ProductController>> _logger;
         private readonly ProductController _prod;
 
         public ProductControllerTests()
         {
-            _mockProductService = new Mock<IProductService>();
             _logger = new Mock<ILogger<ProductController>>();
             _prod = new ProductController(_mockProductService.Object, _logger.Object);
         }

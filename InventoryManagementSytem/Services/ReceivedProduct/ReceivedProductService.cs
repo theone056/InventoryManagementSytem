@@ -41,7 +41,7 @@ namespace InventoryManagementSytem.Services.ReceivedProduct
             throw new NotImplementedException();
         }
 
-        public async Task<List<ReceivedProductModel>> GetAll()
+        public async Task<List<GetAllReceivedProductResponseViewModel>> GetAll()
         {
             using (var httpclient = _httpClientFactory.CreateClient("ReceivedProductService"))
             {
@@ -53,7 +53,7 @@ namespace InventoryManagementSytem.Services.ReceivedProduct
 
                 string response = reader.ReadToEnd();
 
-                return JsonSerializer.Deserialize<List<ReceivedProductModel>>(response);
+                return JsonSerializer.Deserialize<List<GetAllReceivedProductResponseViewModel>>(response);
             }
         }
 

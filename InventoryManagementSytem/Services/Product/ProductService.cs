@@ -50,9 +50,7 @@ namespace InventoryManagementSytem.Services.Product
             }
         }
 
-     
-
-
+    
         public async Task<bool> Update(ProductModel product)
         {
             using (var httpclient = _httpClientFactory.CreateClient("ProductService"))

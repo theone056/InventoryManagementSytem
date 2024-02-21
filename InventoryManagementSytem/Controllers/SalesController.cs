@@ -28,7 +28,7 @@ namespace InventoryManagementSytem.Controllers
         [Route("Sales/Purchase")]
         public async Task<IActionResult> Purchase()
         {
-            var products = await _productService.GetAllNames();
+            var products = await _productService.GetAvailableProducts();
             return View(new PurchaseViewModel()
             {
                 Products = products

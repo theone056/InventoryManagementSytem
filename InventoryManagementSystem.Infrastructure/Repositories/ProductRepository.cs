@@ -75,7 +75,7 @@ namespace InventoryManagementSystem.Infrastructure.Repositories
         {
             try
             {
-                return await _context.Products.Where(x => x.Code == code).FirstOrDefaultAsync(cancellationToken);
+                return await _context.Products.Include(x=>x.Stocks).Where(x => x.Code == code).FirstOrDefaultAsync(cancellationToken);
             }
             catch (Exception ex)
             {
@@ -133,7 +133,6 @@ namespace InventoryManagementSystem.Infrastructure.Repositories
 
                 if (IsProductNameExist(product.ProductName, cancellationToken).Result == false && Get(product.Code, cancellationToken).Result == null)
                 {
-                    Create(product);
                     _context.Stocks.Add(new StockInventory()
                     {
                         DateCreated = DateTime.Now,
@@ -144,7 +143,7 @@ namespace InventoryManagementSystem.Infrastructure.Repositories
                         TotalSales = 0,
                         Product = product
                     });
-
+                    Create(product);
                     return true;
                 } 
                 else

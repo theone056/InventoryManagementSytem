@@ -47,6 +47,22 @@ namespace InventoryManagementSytem.Services.Product
             }
         }
 
+        public async Task<List<ProductNamesModel>> GetAvailableProducts()
+        {
+            using (var httpclient = _httpClientFactory.CreateClient("ProductService"))
+            {
+                var result = await httpclient.GetAsync("Product/GetAvailableProducts");
+
+                Stream stream = result.Content.ReadAsStream();
+
+                StreamReader reader = new StreamReader(stream);
+
+                string response = reader.ReadToEnd();
+
+                return JsonSerializer.Deserialize<List<ProductNamesModel>>(response);
+            }
+        }
+
         public async Task<ProductModel> GetProduct(Guid guid)
         {
             using (var httpclient = _httpClientFactory.CreateClient("ProductService"))

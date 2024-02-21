@@ -5,7 +5,7 @@ namespace InventoryManagementSytem.Services.ReceivedProduct.Interface
     public interface IReceivedProductService
     {
         Task<bool> Create(ReceivedProductModel product);
-        Task<List<ReceivedProductModel>> GetAll();
+        Task<List<GetAllReceivedProductResponseViewModel>> GetAll();
 
         Task<ReceivedProductModel> GetProduct(Guid guid);
 

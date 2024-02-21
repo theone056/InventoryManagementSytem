@@ -1,10 +1,9 @@
-﻿using InventoryManagementSytem.Services.Models;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Text.Json.Serialization;
 
 namespace InventoryManagementSytem.Services.Model
 {
-    public class ReceivedProductModel
+    public class GetAllReceivedProductResponseViewModel
     {
         [JsonPropertyName("id")]
         [DisplayName("Id")]
@@ -26,8 +25,14 @@ namespace InventoryManagementSytem.Services.Model
         [JsonPropertyName("encodedBy")]
         public string EncodedBy { get; set; }
         [JsonPropertyName("dateCreated")]
-        public DateTimeOffset DateCreated { get; set; } = DateTimeOffset.Now;
+        public DateTimeOffset DateCreated { get; set; }
         [JsonPropertyName("dateUpdated")]
         public DateTimeOffset? DateUpdated { get; set; } = DateTimeOffset.Now;
+        [JsonPropertyName("productName")]
+        public string ProductName { get; set; }
+        [JsonPropertyName("unit")]
+        public string Unit { get; set; }
+        [JsonPropertyName("price")]
+        public double Price { get; set; }
     }
 }

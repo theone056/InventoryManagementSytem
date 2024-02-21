@@ -41,7 +41,7 @@ namespace InventoryManagementSytem.Controllers
                 Qty = receivedProduct.Qty,
                 DateReceived = receivedProduct.DateReceived,
                 DateCreated = DateTime.UtcNow,
-                EncodedBy = "Test Name"
+                EncodedBy = "Test Name",
             }).Result;
 
             var receivedProducts = _receivedProduct.GetAll().Result;

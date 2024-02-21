@@ -10,5 +10,7 @@ namespace InventoryManagementSytem.Services.Product.Interface
         Task<ProductModel> GetProduct(Guid guid);
 
         Task<List<ProductNamesModel>> GetAllNames();
+
+        Task<List<ProductNamesModel>> GetAvailableProducts();
     }
 }

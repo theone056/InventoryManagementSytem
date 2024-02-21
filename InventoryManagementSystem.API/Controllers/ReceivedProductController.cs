@@ -2,6 +2,7 @@
 using InventoryManagementSystem.Application.Interface.Repository;
 using InventoryManagementSystem.Application.Models;
 using InventoryManagementSystem.Application.Services.Interface;
+using InventoryManagementSystem.Application.Services.ReceivedProductServices.Interface;
 using InventoryManagementSystem.Domain.Entities;
 using InventoryManagementSystem.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Http;
@@ -13,26 +14,33 @@ namespace InventoryManagementSystem.API.Controllers
     [ApiController]
     public class ReceivedProductController : ControllerBase
     {
-        private readonly IReceivedProductService _recivedProductService;
-        private readonly IStockInventoryRepository _stockRepository;
-        public ReceivedProductController(IReceivedProductService receivedProductService, IStockInventoryRepository stockInventory)
+        private readonly IGetReceivedProductService _getReceivedProductService;
+        private readonly ICreateReceivedProductService _createReceivedProductService;
+        private readonly IUpdateReceivedProductService _updateReceivedProductService;
+        private readonly IDeleteReceivedProductService _deleteReceivedProductService;
+        public ReceivedProductController(IGetReceivedProductService getReceivedProductService, 
+                                         ICreateReceivedProductService createReceivedProductService,
+                                         IUpdateReceivedProductService updateReceivedProductService,
+                                         IDeleteReceivedProductService deleteReceivedProductService)
         {
-            _recivedProductService = receivedProductService;
-            _stockRepository = stockInventory;
+            _getReceivedProductService = getReceivedProductService;
+            _createReceivedProductService = createReceivedProductService;
+            _updateReceivedProductService = updateReceivedProductService;
+            _deleteReceivedProductService = deleteReceivedProductService;
 
         }
 
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll(CancellationToken ct)
         {
-            var result = await _recivedProductService.GetAll(ct);
+            var result = await _getReceivedProductService.GetAll(ct);
             return Ok(result);
         }
 
         [HttpGet("Get")]
         public async Task<IActionResult> GetReceivedProduct(Guid guid, CancellationToken ct)
         {
-            var receivedProductresult = await _recivedProductService.Get(guid, ct);
+            var receivedProductresult = await _getReceivedProductService.Get(guid, ct);
             if (receivedProductresult != null)
             {
                 return Ok(receivedProductresult);
@@ -44,21 +52,12 @@ namespace InventoryManagementSystem.API.Controllers
         }
 
         [HttpPost("Create")]
-        public async Task<IActionResult> Create(ReceivedProductModel receivedProduct)
+        public ActionResult Create([FromBody]ReceivedProductModel receivedProduct)
         {
             if (ModelState.IsValid)
             {
-                _recivedProductService.Create(receivedProduct);
-                var result = await _stockRepository.UpdateStocksByReceivedQty(new UpdateReceivedQtyModel()
-                {
-                    ProductCode = receivedProduct.ProductCode,
-                    ReceivedQty = receivedProduct.Qty
-                });
-
-                if (result)
-                {
-                    return Ok();
-                }
+                _createReceivedProductService.Create(receivedProduct);
+                 return Ok();
             }
             return BadRequest();
         }
@@ -68,7 +67,7 @@ namespace InventoryManagementSystem.API.Controllers
         {
             if (ModelState.IsValid)
             {
-                _recivedProductService.Upsert(receivedProduct, ct);
+                _updateReceivedProductService.Upsert(receivedProduct, ct);
                 return Ok();
             }
             return BadRequest();
@@ -79,17 +78,8 @@ namespace InventoryManagementSystem.API.Controllers
         {
             if (ModelState.IsValid)
             {
-                var receivedProductResult = _recivedProductService.Get(receivedProduct.ProductCode, ct).Result;
-                if (receivedProductResult != null)
-                {
-                    _recivedProductService.Update(receivedProductResult);
-                    return Ok();
-                }
-                else
-                {
-                    return NotFound();
-                }
-
+                _updateReceivedProductService.Update(receivedProduct,ct);
+                return Ok();
             }
             return BadRequest();
         }
@@ -100,16 +90,8 @@ namespace InventoryManagementSystem.API.Controllers
         {
             if (ModelState.IsValid)
             {
-                var receivedProductResult = _recivedProductService.Get(receivedProduct.ProductCode, ct).Result;
-                if (receivedProductResult != null)
-                {
-                    _recivedProductService.Delete(receivedProductResult);
-                    return Ok();
-                }
-                else
-                {
-                    return NotFound();
-                }
+                _deleteReceivedProductService.Delete(receivedProduct,ct);
+                return Ok();
             }
             return BadRequest();
         }
