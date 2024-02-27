@@ -37,20 +37,20 @@ namespace InventoryManagementSystem.Infrastructure.Repositories
             return await _context.Stocks.FirstOrDefaultAsync(x=>x.ProductCode == code, cancellationToken);
         }
 
-        public async Task<object> GetAll(CancellationToken cancellationToken)
+        public async Task<List<GetAllStockInventoryResponse>> GetAll(CancellationToken cancellationToken)
         {
             var result =  await _context
                                         .Stocks
                                         .Include(x=>x.Product)
-                                        .Select(x=> new 
+                                        .Select(x=> new GetAllStockInventoryResponse
                                                     { 
-                                                        x.Product.ProductName, 
-                                                        x.Product.Unit, 
-                                                        x.ReceivedQty, 
-                                                        x.SalesQty, 
-                                                        x.StockQty, 
-                                                        x.Product.Price,
-                                                        x.TotalSales  
+                                                       ProductName = x.Product.ProductName, 
+                                                        Unit = x.Product.Unit, 
+                                                        ReceivedQty = x.ReceivedQty, 
+                                                        SalesQty = x.SalesQty, 
+                                                        StockQty = x.StockQty, 
+                                                         SellingPrice = x.Product.Price,
+                                                        TotalSales = x.TotalSales  
                                         }).ToListAsync(cancellationToken);
 
             return result;

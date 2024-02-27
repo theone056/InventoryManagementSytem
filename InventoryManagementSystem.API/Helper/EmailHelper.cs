@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Net.Mail;
 
-namespace InventoryManagementSystem.API.Services
+namespace InventoryManagementSystem.API.Helper
 {
     public class EmailHelper
     {

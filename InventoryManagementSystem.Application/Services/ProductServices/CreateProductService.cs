@@ -25,11 +25,8 @@ namespace InventoryManagementSystem.Application.Services.ProductServices
         {
             try
             {
-                if (_productRepository.IsProductNameExist(entity.ProductName, cancellationToken).Result == false)
-                {
-                    Product product = MappedProduct(entity);
-                    _productRepository.Upsert(product,cancellationToken);
-                }
+                Product product = MappedProduct(entity);
+                _productRepository.Upsert(product,cancellationToken);
             }
             catch (Exception ex)
             {

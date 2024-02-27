@@ -10,19 +10,28 @@ namespace InventoryManagementSytem.Controllers
     public class SalesController : Controller
     {
         private readonly IGetProductServices _productService;
+        private readonly IGetSalesService _salesService;
         private readonly ICreateSaleService _createSaleService;
         private readonly IMapper _mapper;
-        public SalesController(IGetProductServices productService, ICreateSaleService createSaleService, IMapper mapper)
+        public SalesController(IGetProductServices productService, 
+                               ICreateSaleService createSaleService,
+                               IGetSalesService salesService,
+                               IMapper mapper)
         {
             _productService = productService;
             _createSaleService = createSaleService;
+            _salesService = salesService;
             _mapper = mapper;
 
         }
         [Route("Sales")]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var sales = await _salesService.GetAll();
+            return View(new SalesViewModel()
+            {
+                Sales = sales
+            });
         }
 
         [Route("Sales/Purchase")]

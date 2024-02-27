@@ -40,7 +40,7 @@ namespace InventoryManagementSystem.Infrastructure.Repositories
 
         public Task<List<Sale>> GetAll(CancellationToken cancellationToken)
         {
-           return _context.Sales.ToListAsync(cancellationToken);
+           return _context.Sales.Include(x=>x.Product).ToListAsync(cancellationToken);
         }
     }
 }

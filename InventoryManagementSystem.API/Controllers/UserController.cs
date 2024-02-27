@@ -1,12 +1,9 @@
 ﻿using AutoMapper;
-using InventoryManagementSystem.API.Services;
 using InventoryManagementSystem.Application.Interface.Repository;
 using InventoryManagementSystem.Application.Models;
 using InventoryManagementSystem.Domain.Entities;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
 
 namespace InventoryManagementSystem.API.Controllers
 {

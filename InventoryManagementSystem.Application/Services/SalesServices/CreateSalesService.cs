@@ -1,15 +1,16 @@
 ﻿using AutoMapper;
 using InventoryManagementSystem.Application.Interface.Repository;
 using InventoryManagementSystem.Application.Models;
-using InventoryManagementSystem.Application.Services.SalesService.Interface;
+using InventoryManagementSystem.Application.Services.SalesServices.Interface;
 using InventoryManagementSystem.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
-namespace InventoryManagementSystem.Application.Services.SalesService
+namespace InventoryManagementSystem.Application.Services.SalesServices
 {
     public class CreateSalesService : ICreateSalesService
     {
@@ -24,6 +25,19 @@ namespace InventoryManagementSystem.Application.Services.SalesService
         {
             var salesList = _mapper.Map<List<Sale>>(sales);
             await _salesRepository.AddSales(salesList);
+        }
+
+        public void Create(SalesModel sales)
+        {
+            try
+            {
+                var salesModel = _mapper.Map<Sale>(sales);
+                _salesRepository.Create(salesModel);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
         }
     }
 }

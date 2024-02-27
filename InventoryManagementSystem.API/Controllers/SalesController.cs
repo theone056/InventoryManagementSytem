@@ -1,10 +1,5 @@
-﻿using AutoMapper;
-using InventoryManagementSystem.Application.Interface.Repository;
-using InventoryManagementSystem.Application.Models;
-using InventoryManagementSystem.Application.Services.SalesService.Interface;
-using InventoryManagementSystem.Domain.Entities;
-using InventoryManagementSystem.Infrastructure.Repositories;
-using Microsoft.AspNetCore.Http;
+﻿using InventoryManagementSystem.Application.Models;
+using InventoryManagementSystem.Application.Services.SalesServices.Interface;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InventoryManagementSystem.API.Controllers
@@ -13,27 +8,32 @@ namespace InventoryManagementSystem.API.Controllers
     [ApiController]
     public class SalesController : ControllerBase
     {
-        private readonly ISalesRepository _salesRepository;
         private readonly ICreateSalesService _createSalesService;
-        private readonly IMapper _mapper;
-        public SalesController(ISalesRepository salesRepository, ICreateSalesService createSalesService, IMapper mapper)
+        private readonly IGetSalesService _getSalesService;
+        private readonly IUpdateSalesService _updateSalesService;
+        private readonly IDeleteSalesService _deleteSalesService;
+        public SalesController(ICreateSalesService createSalesService,
+                               IGetSalesService getSalesService,
+                               IUpdateSalesService updateSalesService,
+                               IDeleteSalesService deleteSalesService)
         {
-            _salesRepository = salesRepository;
             _createSalesService = createSalesService;
-            _mapper = mapper;
+            _getSalesService = getSalesService;
+            _updateSalesService = updateSalesService;
+            _deleteSalesService = deleteSalesService;
         }
 
 
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll(CancellationToken ct)
         {
-            return Ok(await _salesRepository.GetAll(ct));
+            return Ok(await _getSalesService.GetAll(ct));
         }
 
         [HttpGet("Get")]
         public async Task<IActionResult> GetSale(Guid guid, CancellationToken ct)
         {
-            var salesresult = await _salesRepository.Get(guid, ct);
+            var salesresult = await _getSalesService.Get(guid, ct);
             if (salesresult != null)
             {
                 return Ok(salesresult);
@@ -49,8 +49,7 @@ namespace InventoryManagementSystem.API.Controllers
         {
             if (ModelState.IsValid)
             {
-                var salesModel = _mapper.Map<Sale>(sale);
-                _salesRepository.Create(salesModel);
+                _createSalesService.Create(sale);
                 return Ok();
             }
             return BadRequest();
@@ -72,18 +71,8 @@ namespace InventoryManagementSystem.API.Controllers
         {
             if (ModelState.IsValid)
             {
-                var salesModel = _mapper.Map<Sale>(sale);
-                var salesResult = _salesRepository.Get(salesModel.ProductCode, ct).Result;
-                if (salesResult != null)
-                {
-                    _salesRepository.Update(salesModel);
-                    return Ok();
-                }
-                else
-                {
-                    return NotFound();
-                }
-
+                _updateSalesService.Update(sale,ct);
+                return Ok();
             }
             return BadRequest();
         }
@@ -94,17 +83,8 @@ namespace InventoryManagementSystem.API.Controllers
         {
             if (ModelState.IsValid)
             {
-                var salesModel = _mapper.Map<Sale>(sale);
-                var salesResult = _salesRepository.Get(salesModel.ProductCode, ct).Result;
-                if (salesResult != null)
-                {
-                    _salesRepository.Delete(salesResult);
-                    return Ok();
-                }
-                else
-                {
-                    return NotFound();
-                }
+                _deleteSalesService.Delete(sale, ct);
+                return Ok();
             }
             return BadRequest();
         }

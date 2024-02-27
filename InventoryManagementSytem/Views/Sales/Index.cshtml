@@ -1,6 +1,71 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@model SalesViewModel
 @{
 }
 <h1>Sales</h1>
+
+<div class="container-fluid">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <td>
+                    Id
+                </td>
+                <td>
+                    Product Code
+                </td>
+                <td>
+                    Transaction Date
+                </td>
+                <td>
+                    Product Name
+                </td>
+                <td>
+                    Price
+                </td>
+                <td>
+                    Unit
+                </td>
+                <td>
+                    Quantity
+                </td>
+                <td>
+                    Total Sales
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var sale in Model.Sales)
+            {
+                <tr>
+                    <td>
+                        @sale.Id
+                    </td>
+                    <td>
+                        @sale.ProductCode
+                    </td>
+                    <td>
+                        @sale.TransactionDate
+                    </td>
+                    <td>
+                        @sale.ProductName
+                    </td>
+                    <td>
+                        @sale.Price
+                    </td>
+                    <td>
+                        @sale.Unit
+                    </td>
+                    <td>
+                        @sale.Qty
+                    </td>
+                    <td>
+                        @sale.TotalSales
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

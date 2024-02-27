@@ -1,14 +1,8 @@
-﻿using AutoMapper;
-using InventoryManagementSystem.API.Filters;
-using InventoryManagementSystem.API.Filters.ExceptionFilters;
-using InventoryManagementSystem.Application.Interface.Repository;
+﻿using InventoryManagementSystem.API.Filters;
 using InventoryManagementSystem.Application.Models;
-using InventoryManagementSystem.Application.Services.Interface;
-using InventoryManagementSystem.Domain.Entities;
 using InventoryManagementSystem.Application.Services.ProductServices.Interface;
-using Microsoft.AspNetCore.Http;
+using InventoryManagementSystem.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
-using System;
 
 namespace InventoryManagementSystem.API.Controllers
 {

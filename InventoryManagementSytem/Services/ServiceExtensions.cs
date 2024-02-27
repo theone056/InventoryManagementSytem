@@ -59,6 +59,7 @@ namespace InventoryManagementSytem.Services
             services.AddTransient<IStockService, StockService>();
             services.AddTransient<IGetProductServices, GetProductServices>();
             services.AddTransient<ICreateSaleService, CreateSaleService>();
+            services.AddTransient<IGetSalesService, GetSalesService>();
         }
     }
 }

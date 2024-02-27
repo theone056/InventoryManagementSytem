@@ -1,6 +1,3 @@
-using InventoryManagementSytem.Services.Home;
-using InventoryManagementSytem.Services.Home.Interface;
-using InventoryManagementSytem.Services.Product;
 using InventoryManagementSytem.Services;
 
 
