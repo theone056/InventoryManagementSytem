@@ -1,13 +1,5 @@
-﻿using AutoMapper;
-using InventoryManagementSystem.Application.Interface.Repository;
-using InventoryManagementSystem.Application.Models;
-using InventoryManagementSystem.Application.Services.SalesServices.Interface;
-using InventoryManagementSystem.Application.Services.StocksServices.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using InventoryManagementSystem.Application.Services.StocksServices.Interface;
+using InventoryManagementSystem.Domain.Interface.Repository;
 
 namespace InventoryManagementSystem.Application.Services.StocksServices
 {

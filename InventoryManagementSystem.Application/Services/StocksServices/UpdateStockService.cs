@@ -1,5 +1,6 @@
 ﻿using InventoryManagementSystem.Application.Models;
 using InventoryManagementSystem.Application.Services.StocksServices.Interface;
+using InventoryManagementSystem.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

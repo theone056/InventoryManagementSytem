@@ -1,13 +1,7 @@
-﻿using InventoryManagementSystem.Application.Interface.Repository;
-using InventoryManagementSystem.Domain.Entities;
+﻿using InventoryManagementSystem.Core.Domain.Entities;
+using InventoryManagementSystem.Core.Domain.Interface.Repository;
 using InventoryManagementSystem.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InventoryManagementSystem.Infrastructure.Repositories
 {
@@ -17,6 +11,31 @@ namespace InventoryManagementSystem.Infrastructure.Repositories
         public ReceivedProductRepository(IMSDbContext context) : base(context)
         {
             _context = context;
+        }
+
+        public void CreateReceivedProductWithUpdateStock(ReceivedProduct product)
+        {
+            try
+            {
+                var price = _context.Products.FirstOrDefault(p => p.Code == product.ProductCode).Price;
+                product.SellingPrice = price;
+                _context.ReceivedProducts.Add(product);
+
+                //update stock
+                var stocks = _context.Stocks.FirstOrDefault(x => x.ProductCode == product.ProductCode);
+                if (stocks != null)
+                {
+                    stocks.ReceivedQty += product.Qty;
+                    stocks.StockQty = stocks.ReceivedQty - stocks.SalesQty;
+                    stocks.DateUpdated = DateTime.UtcNow;
+                }
+
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         public async Task<ReceivedProduct> Get(Guid code, CancellationToken cancellationToken)

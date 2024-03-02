@@ -17,13 +17,13 @@ namespace InventoryManagementSytem.Services.ReceivedProduct
 
         public async Task<bool> Create(ReceivedProductModel product)
         {
-            using (var httpclient = _httpClientFactory.CreateClient("ReceivedProductService"))
+            using (var httpclient = _httpClientFactory.CreateClient("IMSService"))
             {
                 var productJson = new StringContent(
                 JsonSerializer.Serialize(product),
                 Encoding.UTF8,
                 Application.Json);
-                var result = await httpclient.PostAsync("ReceivedProduct/Create", productJson);
+                var result = await httpclient.PostAsync("ReceivedProduct/CreateReceivedProductWithUpdateStock", productJson);
 
                 if (result.IsSuccessStatusCode)
                 {
@@ -43,7 +43,7 @@ namespace InventoryManagementSytem.Services.ReceivedProduct
 
         public async Task<List<GetAllReceivedProductResponseViewModel>> GetAll()
         {
-            using (var httpclient = _httpClientFactory.CreateClient("ReceivedProductService"))
+            using (var httpclient = _httpClientFactory.CreateClient("IMSService"))
             {
                 var result = await httpclient.GetAsync("ReceivedProduct/GetAll");
 
@@ -64,7 +64,7 @@ namespace InventoryManagementSytem.Services.ReceivedProduct
 
         public async Task<bool> Upsert(ReceivedProductModel product)
         {
-            using (var httpclient = _httpClientFactory.CreateClient("ReceivedProductService"))
+            using (var httpclient = _httpClientFactory.CreateClient("IMSService"))
             {
                 var productJson = new StringContent(
                 JsonSerializer.Serialize(product),

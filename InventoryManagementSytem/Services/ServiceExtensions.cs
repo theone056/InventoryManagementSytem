@@ -23,23 +23,7 @@ namespace InventoryManagementSytem.Services
 
         private static void ConfigureAPIBaseAddress(this IServiceCollection services)
         {
-            services.AddHttpClient("ProductService", client =>
-            {
-                client.BaseAddress = new Uri("https://localhost:7275/api/");
-            });
-            services.AddHttpClient("HomeService", client =>
-            {
-                client.BaseAddress = new Uri("https://localhost:7275/api/");
-            });
-            services.AddHttpClient("ReceivedProductService", client =>
-            {
-                client.BaseAddress = new Uri("https://localhost:7275/api/");
-            });
-            services.AddHttpClient("StockService", client =>               
-            {
-                client.BaseAddress = new Uri("https://localhost:7275/api/");
-            });
-            services.AddHttpClient("SaleService", client =>
+            services.AddHttpClient("IMSService", client =>
             {
                 client.BaseAddress = new Uri("https://localhost:7275/api/");
             });

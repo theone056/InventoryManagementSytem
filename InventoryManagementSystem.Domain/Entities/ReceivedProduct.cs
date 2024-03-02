@@ -13,6 +13,7 @@ namespace InventoryManagementSystem.Domain.Entities
         [Key]
         public int Id { get; set; }
         public DateTime DateReceived { get; set; }
+        public double SellingPrice { get; set; }
         public double Qty { get; set; }
         [StringLength(50)]
         public string EncodedBy { get; set; }

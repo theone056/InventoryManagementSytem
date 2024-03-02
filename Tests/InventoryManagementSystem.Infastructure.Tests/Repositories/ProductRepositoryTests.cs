@@ -1,5 +1,6 @@
 ﻿using AutoFixture;
-using InventoryManagementSystem.Domain.Entities;
+using InventoryManagementSystem.Core.Domain.Entities;
+using InventoryManagementSystem.Core.Domain.Interface.Repository;
 
 namespace InventoryManagementSystem.Infastructure.Tests.Repositories
 {

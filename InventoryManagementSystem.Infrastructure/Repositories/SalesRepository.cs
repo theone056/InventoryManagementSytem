@@ -1,5 +1,5 @@
-﻿using InventoryManagementSystem.Application.Interface.Repository;
-using InventoryManagementSystem.Domain.Entities;
+﻿using InventoryManagementSystem.Core.Domain.Interface.Repository;
+using InventoryManagementSystem.Core.Domain.Entities;
 using InventoryManagementSystem.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using System;

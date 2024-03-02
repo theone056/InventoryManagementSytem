@@ -13,7 +13,7 @@ namespace InventoryManagementSytem.Services.Sales
         }
         public async Task<List<GetAllSalesResponse>> GetAll()
         {
-            using (var httpclient = _httpClientFactory.CreateClient("SaleService"))
+            using (var httpclient = _httpClientFactory.CreateClient("IMSService"))
             {
                 var result = await httpclient.GetAsync("Sales/GetAll");
 

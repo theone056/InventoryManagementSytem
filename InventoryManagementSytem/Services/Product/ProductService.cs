@@ -18,7 +18,7 @@ namespace InventoryManagementSytem.Services.Product
 
         public async Task<bool> Create(ProductModel product)
         {
-            using (var httpclient = _httpClientFactory.CreateClient("ProductService"))
+            using (var httpclient = _httpClientFactory.CreateClient("IMSService"))
             {
                 var productJson = new StringContent(
                 JsonSerializer.Serialize(product),
@@ -37,7 +37,7 @@ namespace InventoryManagementSytem.Services.Product
 
         public async Task<bool> Delete(string productName)
         {
-            using (var httpclient = _httpClientFactory.CreateClient("ProductService"))
+            using (var httpclient = _httpClientFactory.CreateClient("IMSService"))
             {
                 var result = await httpclient.DeleteAsync(string.Format("Product/Delete?productName={0}",productName));
 
@@ -53,7 +53,7 @@ namespace InventoryManagementSytem.Services.Product
     
         public async Task<bool> Update(ProductModel product)
         {
-            using (var httpclient = _httpClientFactory.CreateClient("ProductService"))
+            using (var httpclient = _httpClientFactory.CreateClient("IMSService"))
             {
                 var productJson = new StringContent(
                 JsonSerializer.Serialize(product),
@@ -72,7 +72,7 @@ namespace InventoryManagementSytem.Services.Product
 
         public async Task<bool> Upsert(ProductModel product)
         {
-            using (var httpclient = _httpClientFactory.CreateClient("ProductService"))
+            using (var httpclient = _httpClientFactory.CreateClient("IMSService"))
             {
                 var productJson = new StringContent(
                 JsonSerializer.Serialize(product),

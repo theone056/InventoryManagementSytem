@@ -1,16 +1,10 @@
 ﻿using AutoMapper;
-using InventoryManagementSystem.Application.Interface.Repository;
-using InventoryManagementSystem.Application.Models;
-using InventoryManagementSystem.Domain.Entities;
+using InventoryManagementSystem.Core.Domain.Entities;
+using InventoryManagementSystem.Core.Domain.Interface.Repository;
+using InventoryManagementSystem.Core.Models;
 using InventoryManagementSystem.Infrastructure.Context;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Reflection.Metadata;
-using System.Security.Claims;
-using System.Text;
 
 namespace InventoryManagementSystem.Infrastructure.Repositories
 {
@@ -47,6 +41,17 @@ namespace InventoryManagementSystem.Infrastructure.Repositories
             userResult.DateCreated = DateTime.UtcNow;
             var result = await _userManager.CreateAsync(_user,user.Password);
             return result;
+        }
+
+        public async Task<User> FindUserByName(string userName)
+        {
+            return await _userManager.FindByNameAsync(userName);
+     
+        }
+
+        public async Task<IList<string>> GetAllRoles(User user)
+        {
+            return await _userManager.GetRolesAsync(user);
         }
     }
 }

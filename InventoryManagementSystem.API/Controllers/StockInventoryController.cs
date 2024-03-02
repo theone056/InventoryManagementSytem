@@ -1,10 +1,5 @@
-﻿using AutoMapper;
-using InventoryManagementSystem.Application.Interface.Repository;
-using InventoryManagementSystem.Application.Models;
-using InventoryManagementSystem.Application.Services.StocksServices.Interface;
-using InventoryManagementSystem.Domain.Entities;
-using InventoryManagementSystem.Infrastructure.Repositories;
-using Microsoft.AspNetCore.Http;
+﻿using InventoryManagementSystem.Core.Models;
+using InventoryManagementSystem.Core.Services.StocksServices.Interface;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InventoryManagementSystem.API.Controllers

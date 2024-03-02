@@ -1,7 +1,7 @@
 ﻿using InventoryManagementSystem.API.Filters;
-using InventoryManagementSystem.Application.Models;
-using InventoryManagementSystem.Application.Services.ProductServices.Interface;
-using InventoryManagementSystem.Domain.Entities;
+using InventoryManagementSystem.Core.Models;
+using InventoryManagementSystem.Core.Services.ProductServices.Interface;
+using InventoryManagementSystem.Core.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InventoryManagementSystem.API.Controllers

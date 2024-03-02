@@ -1,6 +1,6 @@
 ﻿using InventoryManagementSystem.API.CustomTokenProvider;
-using InventoryManagementSystem.Application.Interface.Repository;
-using InventoryManagementSystem.Domain.Entities;
+using InventoryManagementSystem.Core.Domain.Interface.Repository;
+using InventoryManagementSystem.Core.Domain.Entities;
 using InventoryManagementSystem.Infrastructure.Context;
 using InventoryManagementSystem.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -50,7 +50,6 @@ namespace InventoryManagementSystem.Infrastructure
         public static void ConfigureDependencyInjection(this IServiceCollection services)
         {
             services.AddTransient<IUserRepository, UserRepository>();
-            services.AddTransient<IJWTManagerRepository, JWTManagerRepository>();
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<IReceivedProductRepository, ReceivedProductRepository>();
             services.AddTransient<ISalesRepository, SalesRepository>();

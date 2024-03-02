@@ -11,12 +11,10 @@ namespace InventoryManagementSytem.Controllers
     public class ReceivedProductController : Controller
     {
         private readonly IReceivedProductService _receivedProduct;
-        private readonly IProductService _productService;
         private readonly IGetProductServices _getProductServices;
-        public ReceivedProductController(IReceivedProductService receivedProduct, IProductService productService, IGetProductServices getProductServices)
+        public ReceivedProductController(IReceivedProductService receivedProduct, IGetProductServices getProductServices)
         {
             _receivedProduct = receivedProduct;
-            _productService = productService;
             _getProductServices = getProductServices;
 
         }
@@ -24,7 +22,7 @@ namespace InventoryManagementSytem.Controllers
         [Route("ReceivedProduct")]
         public IActionResult Index()
         {
-            var result = _receivedProduct.GetAll().Result;
+            var result = ReceivedProducts();
             return View(new ReceivedProductViewModel()
             {
                 ReceivedProduct = result,
@@ -43,9 +41,19 @@ namespace InventoryManagementSytem.Controllers
                 DateCreated = DateTime.UtcNow,
                 EncodedBy = "Test Name",
             }).Result;
+            
+            return RedirectToAction("ReceivedProductTable");
+        }
 
-            var receivedProducts = _receivedProduct.GetAll().Result;
-            return PartialView("ReceivedProductTable",receivedProducts);
+        public IActionResult ReceivedProductTable()
+        {
+            var receivedProducts = ReceivedProducts();
+            return PartialView("ReceivedProductTable", receivedProducts);
+        }
+
+        private List<GetAllReceivedProductResponseViewModel> ReceivedProducts()
+        {
+            return _receivedProduct.GetAll().Result;
         }
     }
 }

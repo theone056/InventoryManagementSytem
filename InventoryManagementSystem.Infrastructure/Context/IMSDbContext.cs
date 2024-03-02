@@ -1,4 +1,4 @@
-﻿using InventoryManagementSystem.Domain.Entities;
+﻿using InventoryManagementSystem.Core.Domain.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

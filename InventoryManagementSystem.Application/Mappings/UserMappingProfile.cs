@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using InventoryManagementSystem.Application.Models;
 using InventoryManagementSystem.Domain.Entities;
+using InventoryManagementSystem.Domain.Models;
 
 namespace InventoryManagementSystem.Application.Mappings
 {
@@ -24,7 +25,7 @@ namespace InventoryManagementSystem.Application.Mappings
             CreateMap<ReceivedProduct, GetAllReceivedProductResponse>()
                 .ForMember(dest => dest.ProductName, src => src.MapFrom(x => x.Product.ProductName))
                 .ForMember(dest => dest.Unit, src => src.MapFrom(x => x.Product.Unit))
-                .ForMember(dest => dest.Price, src => src.MapFrom(x => x.Product.Price));
+                .ForMember(dest => dest.Price, src => src.MapFrom(x => x.SellingPrice));
             CreateMap<StockInventory,StockInventoryModel>();
             CreateMap<ItemCount, ItemCountModel>().ReverseMap();
             CreateMap<KeyValue, KeyValueModel>().ReverseMap();

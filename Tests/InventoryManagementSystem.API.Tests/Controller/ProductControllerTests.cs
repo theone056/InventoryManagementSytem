@@ -1,21 +1,10 @@
-﻿using AutoMapper;
-using Castle.Core.Logging;
-using InventoryManagementSystem.API.Controllers;
-using InventoryManagementSystem.Application.Interface.Repository;
-using InventoryManagementSystem.Application.Models;
-using InventoryManagementSystem.Application.Services.Interface;
-using InventoryManagementSystem.Application.Services.ProductServices.Interface;
-using InventoryManagementSystem.Domain.Entities;
+﻿using InventoryManagementSystem.API.Controllers;
+using InventoryManagementSystem.Core.Models;
+using InventoryManagementSystem.Core.Services.ProductServices.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InventoryManagementSystem.API.Tests.Controller
 {

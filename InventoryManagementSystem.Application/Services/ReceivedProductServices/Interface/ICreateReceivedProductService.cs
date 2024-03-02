@@ -10,5 +10,6 @@ namespace InventoryManagementSystem.Application.Services.ReceivedProductServices
     public interface ICreateReceivedProductService
     {
         void Create(ReceivedProductModel receivedProduct);
+        void CreateReceivedProductWithUpdateStock(ReceivedProductModel receivedProduct);
     }
 }

@@ -17,7 +17,7 @@ namespace InventoryManagementSytem.Services.Product
         }
         public async Task<List<ProductModel>> GetAll()
         {
-            using (var httpclient = _httpClientFactory.CreateClient("ProductService"))
+            using (var httpclient = _httpClientFactory.CreateClient("IMSService"))
             {
                 var result = await httpclient.GetAsync("Product/GetAll");
 
@@ -33,7 +33,7 @@ namespace InventoryManagementSytem.Services.Product
 
         public async Task<List<ProductNamesModel>> GetAllNames()
         {
-            using (var httpclient = _httpClientFactory.CreateClient("ProductService"))
+            using (var httpclient = _httpClientFactory.CreateClient("IMSService"))
             {
                 var result = await httpclient.GetAsync("Product/GetProductNames");
 
@@ -49,7 +49,7 @@ namespace InventoryManagementSytem.Services.Product
 
         public async Task<List<ProductNamesModel>> GetAvailableProducts()
         {
-            using (var httpclient = _httpClientFactory.CreateClient("ProductService"))
+            using (var httpclient = _httpClientFactory.CreateClient("IMSService"))
             {
                 var result = await httpclient.GetAsync("Product/GetAvailableProducts");
 
@@ -65,7 +65,7 @@ namespace InventoryManagementSytem.Services.Product
 
         public async Task<ProductModel> GetProduct(Guid guid)
         {
-            using (var httpclient = _httpClientFactory.CreateClient("ProductService"))
+            using (var httpclient = _httpClientFactory.CreateClient("IMSService"))
             {
                 var result = await httpclient.GetAsync(string.Format("Product/Get?guid={0}", guid));
 

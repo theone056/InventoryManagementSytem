@@ -30,7 +30,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\InventoryManagementSystem.API\InventoryManagementSystem.API.csproj" />
-    <ProjectReference Include="..\..\InventoryManagementSystem.Application\InventoryManagementSystem.Application.csproj" />
   </ItemGroup>
 
 </Project>

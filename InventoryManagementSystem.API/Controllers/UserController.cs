@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using InventoryManagementSystem.Application.Interface.Repository;
-using InventoryManagementSystem.Application.Models;
-using InventoryManagementSystem.Domain.Entities;
+using InventoryManagementSystem.Core.Domain.Entities;
+using InventoryManagementSystem.Core.Domain.Interface.Repository;
+using InventoryManagementSystem.Core.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,13 +12,11 @@ namespace InventoryManagementSystem.API.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserRepository _user;
-        private readonly IJWTManagerRepository _jwtManager;
         private readonly UserManager<User> _userManager;
         private readonly IMapper _mapper;
-        public UserController(UserManager<User> userManager, IUserRepository user, IJWTManagerRepository jwtManager, IMapper mapper)
+        public UserController(UserManager<User> userManager, IUserRepository user, IMapper mapper)
         {
             _user = user;
-            _jwtManager = jwtManager;
             _userManager = userManager;
             _mapper = mapper;
         }
@@ -58,20 +56,20 @@ namespace InventoryManagementSystem.API.Controllers
             return StatusCode(StatusCodes.Status400BadRequest, errors);
         }
 
-        [HttpPost("Login")]
-        public async Task<IActionResult> LoginUser([FromBody] LoginUserModel user)
-        {
-            if(ModelState.IsValid)
-            {
-                var result = await _user.LoginUser(user);
-                if(result)
-                {
-                    //return Ok();
-                    return Ok(new { Token = await _jwtManager.CreateToken(user.UserName) });
-                }
-            }
+        //[HttpPost("Login")]
+        //public async Task<IActionResult> LoginUser([FromBody] LoginUserModel user)
+        //{
+        //    if(ModelState.IsValid)
+        //    {
+        //        var result = await _user.LoginUser(user);
+        //        if(result)
+        //        {
+        //            //return Ok();
+        //            return Ok(new { Token = await _jwtManager.CreateToken(user.UserName) });
+        //        }
+        //    }
 
-            return Unauthorized();
-        }
+        //    return Unauthorized();
+        //}
     }
 }

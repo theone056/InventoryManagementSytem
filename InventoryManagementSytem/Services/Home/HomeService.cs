@@ -14,7 +14,7 @@ namespace InventoryManagementSytem.Services.Home
         }
         public async Task<IndexViewModel> GetCount()
         {
-            using (var httpclient = _httpClientFactory.CreateClient("ProductService"))
+            using (var httpclient = _httpClientFactory.CreateClient("IMSService"))
             {
                 var result = await httpclient.GetAsync("Product/GetCount");
 

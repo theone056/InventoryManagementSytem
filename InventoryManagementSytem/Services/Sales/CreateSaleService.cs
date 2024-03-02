@@ -15,7 +15,7 @@ namespace InventoryManagementSytem.Services.Sales
         }
         public async Task<bool> Create(List<SalesModel> product)
         {
-            using(var httpClient = _httpClientFactory.CreateClient("SaleService"))
+            using(var httpClient = _httpClientFactory.CreateClient("IMSService"))
             {
                 var productJSON = new StringContent(
                   JsonSerializer.Serialize(product),

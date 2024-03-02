@@ -14,7 +14,7 @@ namespace InventoryManagementSytem.Services.Stocks
         }
         public async Task<List<StockModel>> GetAllStock()
         {
-            using (var httpclient = _httpClientFactory.CreateClient("StockService"))
+            using (var httpclient = _httpClientFactory.CreateClient("IMSService"))
             {
                 var result = await httpclient.GetAsync("StockInventory/GetAll");
 

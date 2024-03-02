@@ -1,5 +1,5 @@
-﻿using InventoryManagementSystem.Application.Models;
-using InventoryManagementSystem.Application.Services.ReceivedProductServices.Interface;
+﻿using InventoryManagementSystem.Core.Models;
+using InventoryManagementSystem.Core.Services.ReceivedProductServices.Interface;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InventoryManagementSystem.API.Controllers
@@ -52,6 +52,17 @@ namespace InventoryManagementSystem.API.Controllers
             {
                 _createReceivedProductService.Create(receivedProduct);
                  return Ok();
+            }
+            return BadRequest();
+        }
+
+        [HttpPost("CreateReceivedProductWithUpdateStock")]
+        public ActionResult CreateReceivedProductWithUpdateStock([FromBody] ReceivedProductModel receivedProduct)
+        {
+            if (ModelState.IsValid)
+            {
+                _createReceivedProductService.CreateReceivedProductWithUpdateStock(receivedProduct);
+                return Ok();
             }
             return BadRequest();
         }

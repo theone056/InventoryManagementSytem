@@ -11,6 +11,7 @@ namespace InventoryManagementSystem.Application.Models
         public int Id { get; set; }
         public DateTime TransactionDate { get; set; }
         public Guid ProductCode { get; set; }
+        public double SellingPrice { get; set; }
         public double Qty { get; set; }
         public double TotalSales { get; set; }
         public DateTimeOffset DateCreated { get; set; }

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using InventoryManagementSystem.Application.Interface.Repository;
+using InventoryManagementSystem.Domain.Interface.Repository;
 using InventoryManagementSystem.Application.Models;
 using InventoryManagementSystem.Application.Services.SalesServices.Interface;
 using InventoryManagementSystem.Domain.Entities;
@@ -15,10 +15,14 @@ namespace InventoryManagementSystem.Application.Services.SalesServices
     public class CreateSalesService : ICreateSalesService
     {
         private readonly ISalesRepository _salesRepository;
+        private readonly IProductRepository _productRepository;
         private readonly IMapper _mapper;
-        public CreateSalesService(ISalesRepository salesRepository, IMapper mapper)
+        public CreateSalesService(ISalesRepository salesRepository, 
+                                  IProductRepository productRepository,   
+                                  IMapper mapper)
         {
             _salesRepository = salesRepository;
+            _productRepository = productRepository;
             _mapper = mapper;
         }
         public async Task AddSales(List<SalesModel> sales)

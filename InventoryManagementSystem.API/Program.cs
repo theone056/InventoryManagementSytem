@@ -1,5 +1,5 @@
 using InventoryManagementSystem.API.Filters.ExceptionFilters;
-using InventoryManagementSystem.Application;
+using InventoryManagementSystem.Core;
 using InventoryManagementSystem.Infrastructure;
 using InventoryManagementSystem.Infrastructure.Context;
 using Serilog;

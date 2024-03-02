@@ -1,10 +1,5 @@
-﻿using InventoryManagementSystem.Application.Interface.Repository;
-using InventoryManagementSystem.Application.Services.ProductServices.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using InventoryManagementSystem.Application.Services.ProductServices.Interface;
+using InventoryManagementSystem.Domain.Interface.Repository;
 
 namespace InventoryManagementSystem.Application.Services.ProductServices
 {

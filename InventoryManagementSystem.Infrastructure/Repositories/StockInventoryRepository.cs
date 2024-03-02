@@ -1,13 +1,8 @@
-﻿using InventoryManagementSystem.Application.Interface.Repository;
-using InventoryManagementSystem.Application.Models;
-using InventoryManagementSystem.Domain.Entities;
+﻿using InventoryManagementSystem.Core.Domain.Entities;
+using InventoryManagementSystem.Core.Domain.Interface.Repository;
+using InventoryManagementSystem.Core.Models;
 using InventoryManagementSystem.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InventoryManagementSystem.Infrastructure.Repositories
 {

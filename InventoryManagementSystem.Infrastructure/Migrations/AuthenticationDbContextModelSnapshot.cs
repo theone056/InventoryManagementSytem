@@ -46,6 +46,9 @@ namespace InventoryManagementSystem.Infrastructure.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<double>("StockQty")
+                        .HasColumnType("float");
+
                     b.Property<string>("Val")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -116,6 +119,9 @@ namespace InventoryManagementSystem.Infrastructure.Migrations
                     b.Property<double>("Qty")
                         .HasColumnType("float");
 
+                    b.Property<double>("SellingPrice")
+                        .HasColumnType("float");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ProductCode");
@@ -135,9 +141,11 @@ namespace InventoryManagementSystem.Infrastructure.Migrations
 
             modelBuilder.Entity("InventoryManagementSystem.Domain.Entities.Sale", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTimeOffset>("DateCreated")
                         .HasColumnType("datetimeoffset");
@@ -149,6 +157,9 @@ namespace InventoryManagementSystem.Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<double>("Qty")
+                        .HasColumnType("float");
+
+                    b.Property<double>("SellingPrice")
                         .HasColumnType("float");
 
                     b.Property<double>("TotalSales")

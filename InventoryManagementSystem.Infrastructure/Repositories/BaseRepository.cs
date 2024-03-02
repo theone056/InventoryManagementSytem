@@ -1,4 +1,4 @@
-﻿using InventoryManagementSystem.Application.Interface.Repository;
+﻿using InventoryManagementSystem.Core.Domain.Interface.Repository;
 using InventoryManagementSystem.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,13 +9,14 @@ using System.Threading.Tasks;
 
 namespace InventoryManagementSystem.Infrastructure.Repositories
 {
-    public class BaseRepository<T> : IBaseRepository<T> where T : class
+    public abstract class BaseRepository<T> : IBaseRepository<T> where T : class
     {
         private readonly IMSDbContext _context;
         public BaseRepository(IMSDbContext context)
         {
             _context = context;
         }
+
         public void Create(T entity)
         {
             _context.Add(entity);
