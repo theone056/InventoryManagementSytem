@@ -7,33 +7,33 @@
 <h1>Sales</h1>
 
 <div class="container-fluid">
-    <table class="table table-bordered">
-        <thead>
+    <table id="sales-table" class="table table-bordered table-responsive">
+        <thead class="table-primary">
             <tr>
-                <td>
+                <th>
                     Id
-                </td>
-                <td>
+                </th>
+                <th>
                     Product Code
-                </td>
-                <td>
+                </th>
+                <th>
                     Transaction Date
-                </td>
-                <td>
+                </th>
+                <th>
                     Product Name
-                </td>
-                <td>
+                </th>
+                <th>
                     Price
-                </td>
-                <td>
+                </th>
+                <th>
                     Unit
-                </td>
-                <td>
+                </th>
+                <th>
                     Quantity
-                </td>
-                <td>
+                </th>
+                <th>
                     Total Sales
-                </td>
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -69,3 +69,7 @@
         </tbody>
     </table>
 </div>
+
+@section Scripts{
+    <script src="~/js/Sales/SalesIndex.js"></script>
+}

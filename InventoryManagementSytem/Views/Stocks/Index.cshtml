@@ -9,8 +9,8 @@
 <div class="container-fluid">
     @if (Model.Any())
     {
-        <div id="product-table-container">
-            <table id="product-table" class="table table-bordered table-responsive">
+        <div id="stock-table-container">
+            <table id="stock-table" class="table table-bordered table-responsive">
                 <thead class="table-primary">
                     <tr>
                         <th class="h4">Product Name</th>
@@ -44,3 +44,7 @@
         <h5>No Data Found</h5>
     }
 </div>
+
+@section Scripts {
+    <script src="~/js/Stock/Stock.js"></script>
+}

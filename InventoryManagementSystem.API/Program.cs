@@ -36,9 +36,9 @@ public class Program
 
         var app = builder.Build();
 
-        var serviceScope = app.Services.CreateScope();
+/*        var serviceScope = app.Services.CreateScope();
         var dataContext = serviceScope.ServiceProvider.GetService<IMSDbContext>();
-        dataContext?.Database.EnsureCreated();
+        dataContext?.Database.EnsureCreated();*/
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())

@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  inventorymanagementsytem:
+    image: ${DOCKER_REGISTRY-}inventorymanagementsytem
+    build:
+      context: .
+      dockerfile: InventoryManagementSytem\Dockerfile
+
+  inventorymanagementsystem.api:
+    image: ${DOCKER_REGISTRY-}inventorymanagementsystemapi
+    build:
+      context: .
+      dockerfile: InventoryManagementSystem.API/Dockerfile
+
